@@ -11,11 +11,11 @@ public class HorarioExcepcion {
   private Date fecha;
   private String descripcion;
 
-  public HorarioExcepcion(String horaInicio, String horaFin, Date fecha, String descripcion) {
-    this.horaInicio = horaInicio;
-    this.horaFin = horaFin;
-    this.fecha = fecha;
-    this.descripcion = descripcion;
+  public HorarioExcepcion(String pHoraInicio, String pHoraFin, Date pFecha, String pDescripcion) {
+    this.horaInicio = pHoraInicio;
+    this.horaFin = pHoraFin;
+    this.fecha = pFecha;
+    this.descripcion = pDescripcion;
   }
 
   

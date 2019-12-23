@@ -10,10 +10,10 @@ public class Incidente {
   private int valor;
   private Date fecha;
 
-  public Incidente(String detalle, int valor, Date fecha) {
-    this.detalle = detalle;
-    this.valor = valor;
-    this.fecha = fecha;
+  public Incidente(String pDetalle, int pValor, Date pFecha) {
+    this.detalle = pDetalle;
+    this.valor = pValor;
+    this.fecha = pFecha;
   }
 
   

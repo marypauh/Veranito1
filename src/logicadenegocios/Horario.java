@@ -9,10 +9,10 @@ public class Horario {
   private String horaFin;
   private String dias;
 
-  public Horario(String horaInicio, String horaFin, String dias) {
-    this.horaInicio = horaInicio;
-    this.horaFin = horaFin;
-    this.dias = dias;
+  public Horario(String pHoraInicio, String pHoraFin, String pDias) {
+    this.horaInicio = pHoraInicio;
+    this.horaFin = pHoraFin;
+    this.dias = pDias;
   }
 
     
