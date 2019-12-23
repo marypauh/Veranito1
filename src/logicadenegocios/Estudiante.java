@@ -1,7 +1,7 @@
 package logicadenegocios;
 
 /**
- *
+ * Clase Estudiante
  * @author Maria Paula 
  */
 public class Estudiante {
@@ -12,11 +12,26 @@ public class Estudiante {
   private int calificacion = 100;
   private String telefono;
 
-  public Estudiante(String pNombreCompleto, int pCarnet, String pCarrera, String pEmail, String pTelefono) {
+  
+  /**
+   * Constructor
+   */
+  public Estudiante() {}
+
+  /**
+   * Constructor
+   * @param pNombreCompleto
+   * @param pCarnet
+   * @param pCarrera
+   * @param pEmail
+   * @param pTelefono 
+   */
+  public Estudiante(int pCarnet,String pNombreCompleto, String pCarrera, String pEmail, int pCalificacion, String pTelefono) {
     this.nombreCompleto = pNombreCompleto;
     this.carnet = pCarnet;
     this.carrera = pCarrera;
     this.email = pEmail;
+    this.calificacion = pCalificacion;
     this.telefono = pTelefono;
   }
 
