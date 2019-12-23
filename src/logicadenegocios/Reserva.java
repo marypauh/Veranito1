@@ -1,13 +1,13 @@
+package logicadenegocios;
+import java.util.ArrayList; 
+import java.util.Date;
+
 /**
  * Clase de los objetos de tipo Reserva
  * 
  * @author Kevin Castillo, Ma Paula Rodriguez y Raquel Rojas
  * @version 1.0
  */
-package logicadenegocios;
-
-import java.util.ArrayList; import java.util.Date;
-
 public class Reserva {
   private String estado = "activa";
   private Date fecha;

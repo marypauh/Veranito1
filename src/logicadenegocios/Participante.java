@@ -1,11 +1,11 @@
+package logicadenegocios;
+
 /**
  * Clase de los objetos de tipo Participante
  * 
  * @author Kevin Castillo, Ma Paula Rodriguez y Raquel Rojas
  * @version 1.0
  */
-package logicadenegocios;
-
 public class Participante {
     private String nombre;
     private String email;
