@@ -12,12 +12,12 @@ public class Estudiante {
   private int calificacion = 100;
   private String telefono;
 
-  public Estudiante(String nombreCompleto, int carnet, String carrera, String email, String telefono) {
-    this.nombreCompleto = nombreCompleto;
-    this.carnet = carnet;
-    this.carrera = carrera;
-    this.email = email;
-    this.telefono = telefono;
+  public Estudiante(String pNombreCompleto, int pCarnet, String pCarrera, String pEmail, String pTelefono) {
+    this.nombreCompleto = pNombreCompleto;
+    this.carnet = pCarnet;
+    this.carrera = pCarrera;
+    this.email = pEmail;
+    this.telefono = pTelefono;
   }
 
   
