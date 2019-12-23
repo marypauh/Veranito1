@@ -1,14 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Clase de los objetos de tipo Recurso
+ * 
+ * @author Kevin Castillo, Ma Paula Rodriguez y Raquel Rojas
+ * @version 1.0
  */
 package logicadenegocios;
 
-/**
- *
- * @author María Paula
- */
 public class Recurso {
+  private String nombre;
+  private String detalle;
+  
+  public String getNombre() {
+    return nombre;
+  }
+
     
+  public void setNombre(String pNombre) {
+    this.nombre = pNombre;
+  }
+
+    
+  public String getDetalle() {
+    return detalle;
+  }
+
+    
+  public void setDetalle(String pDetalle) {
+    this.detalle = pDetalle;
+  }
+  
+  
+   /**
+   * Método para convertir en String toda la información del Recurso
+   */
+    @Override
+    public String toString(){
+    String msg = "Nombre: " + getNombre() + "detalle: " + getDetalle();
+    return msg;     
+    } 
 }
