@@ -2,7 +2,6 @@ package controlador;
 import java.sql.SQLException;
 import vista.MenuForm;
 import controlador.ControladorMenu;
-
 /**
  *
  * @author María Paula
