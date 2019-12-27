@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import logicadenegocios.Estudiante;
 import vista.MenuForm;
 import vista.AgregarEstudianteForm;
-import controlador.ControladorEstudiante;
 
 
 /**
@@ -14,7 +13,7 @@ import controlador.ControladorEstudiante;
 public class ControladorMenu implements ActionListener {
     
   public MenuForm vista;
-  AgregarEstudianteForm vistaAgregarEstudiante;
+  AgregarEstudianteForm vistaAgregarEstudiante = new AgregarEstudianteForm();
   Estudiante logicadenegocios = new Estudiante();
   ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios);
 
