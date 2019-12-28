@@ -10,6 +10,11 @@ public class Recurso {
   private String nombre;
   private String detalle;
   
+  public Recurso(String pNombre, String pDetalle){
+    nombre = pNombre;
+    detalle = pDetalle;     
+  }
+  
   public String getNombre() {
     return nombre;
   }

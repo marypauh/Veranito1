@@ -13,7 +13,7 @@ public class Conexion {
    /**
    * @return conexion 
    */
-  public Connection getConexion(){
+  public static Connection getConexion(){
     Connection contacto = null;
     String url = "jdbc:sqlserver://localhost\\MSSQLSERVER01:1433;databaseName=BiblioTEC";
     try {
