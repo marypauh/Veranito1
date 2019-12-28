@@ -41,12 +41,15 @@ public class MenuForm extends javax.swing.JFrame {
 
         btnAgregarEstudiante = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
+        btnAgregarSala = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnAgregarEstudiante.setText("Agregar Estudiante");
 
         btnCerrar.setText("Cerrar");
+
+        btnAgregarSala.setText("Agregar Sala");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,11 +58,13 @@ public class MenuForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(btnAgregarEstudiante))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(130, 130, 130)
-                        .addComponent(btnCerrar)))
+                        .addComponent(btnCerrar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAgregarSala)
+                            .addComponent(btnAgregarEstudiante))))
                 .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -67,7 +72,9 @@ public class MenuForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addComponent(btnAgregarEstudiante)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(btnAgregarSala)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addContainerGap())
         );
@@ -78,6 +85,7 @@ public class MenuForm extends javax.swing.JFrame {
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregarEstudiante;
+    public javax.swing.JButton btnAgregarSala;
     public javax.swing.JButton btnCerrar;
     // End of variables declaration//GEN-END:variables
 }

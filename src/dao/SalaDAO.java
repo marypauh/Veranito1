@@ -36,8 +36,6 @@ public class SalaDAO {
     consulta.setString(4,estado);
     consulta.setInt(5,calificacion);
     consulta.execute();
-    System.out.println(registrarSalaHorario(sala.horario, identificador));
-
     if( registrarSalaHorario(sala.horario, identificador) && registrarSalaRecurso(sala.recursos, identificador)){
       return true;
     }
