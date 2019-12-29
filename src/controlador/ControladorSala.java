@@ -15,9 +15,9 @@ import javax.swing.table.DefaultTableModel;
 import logicadenegocios.Horario;
 import logicadenegocios.Recurso;
 import logicadenegocios.Sala;
-import vista.RegistrarSala;
-import vista.SeleccionarHorario;
-import vista.AgregarRecursosSala;
+import vista.RegistrarSalaForm;
+import vista.SeleccionarHorarioForm;
+import vista.AgregarRecursosSalaForm;
 
 /**
  *
@@ -28,11 +28,11 @@ public class ControladorSala implements ActionListener{
   public HorarioDAO horario;
   public RecursoDAO recurso;
   public Sala modelo;
-  public RegistrarSala vista;
-  public SeleccionarHorario vistaHorario;
-  public AgregarRecursosSala vistaRecurso;
+  public RegistrarSalaForm vista;
+  public SeleccionarHorarioForm vistaHorario;
+  public AgregarRecursosSalaForm vistaRecurso;
           
-  public ControladorSala(RegistrarSala pVista , Sala pModelo,SeleccionarHorario pVistaH,AgregarRecursosSala pVistaR  ){
+  public ControladorSala(RegistrarSalaForm pVista , Sala pModelo,SeleccionarHorarioForm pVistaH,AgregarRecursosSalaForm pVistaR  ){
     vista = pVista;
     vistaHorario = pVistaH;
     vistaRecurso = pVistaR;
@@ -58,7 +58,6 @@ public class ControladorSala implements ActionListener{
     switch(e.getActionCommand()){
       case "Continuar":
         getInfoSala();
-        System.out.println("jh");
 
         break;
       case "Regresar":
@@ -70,7 +69,6 @@ public class ControladorSala implements ActionListener{
         setRecursosSala();
         break;
       case "Listo":
-        //System.out.println("Si llego");
         registrarSala();
         break;
       default:
@@ -83,18 +81,14 @@ public class ControladorSala implements ActionListener{
    */
 public void getInfoSala(){
   if(vista.datosCorrectos() == true){
-    System.out.println("ui");
     int capacidad = Integer.parseInt(vista.txtCapacidad.getText());
     String ubicacion = vista.txtUbicacion.getText();
     String identificador = vista.txtId.getText();
     modelo = new Sala(identificador, ubicacion, capacidad);
-    System.out.println(modelo.getIdentificador());
     vista.setVisible(false);
     vistaHorario.setVisible(true);
-    System.out.println("jjjj");
     ResultSet rs;
     rs = horario.getHorarios();
-    System.out.println(rs);
     if (rs == null){
       JOptionPane.showMessageDialog(vista, "Error al cargar horarios");
     }else{
@@ -155,9 +149,7 @@ public void setRecursosSala(){
   
   String detalle = vistaRecurso.recursosTable.getValueAt(row, 1).toString();
   Recurso recurso = new Recurso(nombre, detalle);
-  System.out.print(recurso);
   if (modelo.addRecurso(recurso)){
-    System.out.print(modelo.getRecursos().toString());
     JOptionPane.showMessageDialog(vista, "Se ha agregado exitosamente el recurso: " + nombre);
   }else{
     JOptionPane.showMessageDialog(vista, "error");

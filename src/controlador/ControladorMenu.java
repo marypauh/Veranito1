@@ -5,9 +5,9 @@ import logicadenegocios.Estudiante;
 import logicadenegocios.Sala;
 import vista.MenuForm;
 import vista.AgregarEstudianteForm;
-import vista.AgregarRecursosSala;
-import vista.RegistrarSala;
-import vista.SeleccionarHorario;
+import vista.AgregarRecursosSalaForm;
+import vista.RegistrarSalaForm;
+import vista.SeleccionarHorarioForm;
 
 
 /**
@@ -56,9 +56,9 @@ public class ControladorMenu implements ActionListener {
    * Metodo que abre la ventana para agregar sala
    */
   private void agregarSala(){
-      RegistrarSala r = new RegistrarSala();
-      SeleccionarHorario h = new SeleccionarHorario();
-      AgregarRecursosSala recurso = new AgregarRecursosSala();
+      RegistrarSalaForm r = new RegistrarSalaForm();
+      SeleccionarHorarioForm h = new SeleccionarHorarioForm();
+      AgregarRecursosSalaForm recurso = new AgregarRecursosSalaForm();
       Sala sala = new Sala();
       ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
       controlador.vista.setVisible(true);

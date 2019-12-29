@@ -57,7 +57,6 @@ public class SalaDAO {
       consulta.setInt(2,idHorario);
       consulta.execute();
       res = true;
-      System.out.println("hoola");
 
     }catch(SQLException e){
       System.out.println(e);
@@ -66,13 +65,10 @@ public class SalaDAO {
     
   public boolean registrarSalaRecurso(ArrayList<Recurso> pRecurso, String pIdentificador){
     boolean res = false;
-    System.out.println("hoola");
 
     try{
-      System.out.println("recursos");
       String identificador = pIdentificador;
       for(int i=0; i < pRecurso.size(); i++){
-        System.out.println(i);
         Connection conexion = Conexion.getConexion(); 
         String nombre = pRecurso.get(i).getNombre();
         String query = "execute dbo.agregarSalaRecurso @identificadorSala = ? , @Recurso = ?";
