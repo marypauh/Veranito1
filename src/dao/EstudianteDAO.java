@@ -4,7 +4,9 @@ package dao;
 import conexion.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import logicadenegocios.Estudiante;
 
 /**
@@ -51,6 +53,18 @@ public class EstudianteDAO {
     //se utiliza executeUpdate porque retorna un 1 si se inserto el objeto, 0 en caso contrario
     rs = cstmt.executeUpdate();
     System.out.println(rs);
+    return rs;
+  }
+  
+  public ResultSet storeProcedureConsultarEstudiante(int pCarnet){
+    ResultSet rs = null;
+    try{
+      Connection conexion = Conexion.getConexion();
+      Statement ejecutor = conexion.createStatement();
+      rs = ejecutor.executeQuery("{call dbo.consultarEstudiante(pCarnet)}");
+    }catch(SQLException e){
+      System.out.println(e);  
+    }
     return rs;
   }
 }

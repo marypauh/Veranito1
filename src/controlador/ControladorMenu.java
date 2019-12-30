@@ -6,6 +6,7 @@ import logicadenegocios.Sala;
 import vista.MenuForm;
 import vista.AgregarEstudianteForm;
 import vista.AgregarRecursosSalaForm;
+import vista.ConsultarEstudianteForm;
 import vista.RegistrarSalaForm;
 import vista.SeleccionarHorarioForm;
 
@@ -19,7 +20,8 @@ public class ControladorMenu implements ActionListener {
   public MenuForm vista;
   AgregarEstudianteForm vistaAgregarEstudiante = new AgregarEstudianteForm();
   Estudiante logicadenegocios = new Estudiante();
-  ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios);
+  ConsultarEstudianteForm vistaConsulta = new ConsultarEstudianteForm();
+  ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios,vistaConsulta);
 
   /**
    * Constructor
@@ -27,6 +29,7 @@ public class ControladorMenu implements ActionListener {
    */  
   public ControladorMenu(MenuForm pVista){ 
     vista = pVista;
+    this.vista.btnConsultarE.addActionListener(this);
     this.vista.btnAgregarEstudiante.addActionListener(this);
     this.vista.btnCerrar.addActionListener(this);
     this.vista.btnAgregarSala.addActionListener(this);
@@ -45,9 +48,11 @@ public class ControladorMenu implements ActionListener {
       case "Agregar Sala": 
         agregarSala();
         break;
-      case "Cancelar Login":
-        vista.cerrarMenu();
+      case "Cerrar":
+        this.vista.cerrarMenu();
         break;
+      case "Consultar Estudiante":
+       controladorEstudiante.vistaConsulta.abrirVentanaAnterior(vistaConsulta);
       default:
         break;
     }

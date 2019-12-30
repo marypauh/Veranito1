@@ -58,9 +58,9 @@ public class ControladorSala implements ActionListener{
     switch(e.getActionCommand()){
       case "Continuar":
         getInfoSala();
-
         break;
       case "Regresar":
+        this.vista.setVisible(false);
         break;
       case "Seleccionar Horario":
         setHorarioSala();

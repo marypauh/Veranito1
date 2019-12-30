@@ -36,8 +36,6 @@ public class AgregarEstudianteForm extends javax.swing.JFrame {
    * Metodo para regresar al inicio de sesion
    */
   public void volverMenu(){
-    MenuForm menu = new MenuForm();
-    menu.setVisible(true);
     this.setVisible(false);
   }
 
