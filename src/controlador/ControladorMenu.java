@@ -8,6 +8,7 @@ import vista.AgregarEstudianteForm;
 import vista.AgregarRecursosSalaForm;
 import vista.ConsultarEstudianteForm;
 import vista.RegistrarSalaForm;
+import vista.ReservasEstudianteForm;
 import vista.SeleccionarHorarioForm;
 
 
@@ -21,7 +22,8 @@ public class ControladorMenu implements ActionListener {
   AgregarEstudianteForm vistaAgregarEstudiante = new AgregarEstudianteForm();
   Estudiante logicadenegocios = new Estudiante();
   ConsultarEstudianteForm vistaConsulta = new ConsultarEstudianteForm();
-  ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios,vistaConsulta);
+  ReservasEstudianteForm vistaReservas = new ReservasEstudianteForm();
+  ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios,vistaConsulta,vistaReservas);
 
   /**
    * Constructor

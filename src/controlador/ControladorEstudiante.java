@@ -9,10 +9,15 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException; 
+import java.util.Date;
 import java.util.logging.Level; 
 import java.util.logging.Logger; 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logicadenegocios.Horario;
+import logicadenegocios.Reserva;
 import vista.ConsultarEstudianteForm;
+import vista.ReservasEstudianteForm;
 
 /**
  *
@@ -24,6 +29,7 @@ public class ControladorEstudiante implements ActionListener {
   public EstudianteDAO dao;
   public Estudiante logicadenegocios;
    public ConsultarEstudianteForm vistaConsulta;
+  public ReservasEstudianteForm vistaReservas;
   
   
    /**
@@ -31,11 +37,13 @@ public class ControladorEstudiante implements ActionListener {
    * @param pVista
    * @param pModelo 
    */
-  public ControladorEstudiante(AgregarEstudianteForm pVista, Estudiante pModelo, ConsultarEstudianteForm pVistaConsulta) {
+  public ControladorEstudiante(AgregarEstudianteForm pVista, Estudiante pModelo, ConsultarEstudianteForm pVistaConsulta, ReservasEstudianteForm pVistaReservas) {
     vista = pVista;
     logicadenegocios = pModelo;
     dao = new EstudianteDAO();
     vistaConsulta = pVistaConsulta;
+    vistaReservas = pVistaReservas;
+    this.vistaReservas.btnVolver.addActionListener(this);
     this.vistaConsulta.btnConsultar.addActionListener(this);
     this.vistaConsulta.btnReservas.addActionListener(this);
     this.vista.btnAgregar.addActionListener(this);
@@ -59,6 +67,12 @@ public class ControladorEstudiante implements ActionListener {
         break;
       case "Volver":
         this.vistaConsulta.volverMenu();
+        break;
+      case "Ver Reservas":
+        setReservasEstudiante();
+        break;
+      case "Cerrar":
+        this.vistaReservas.volverMenu();
         break;
       default:
         break;
@@ -118,7 +132,29 @@ public class ControladorEstudiante implements ActionListener {
     }
   }
   
+  
+  public void setReservasEstudiante(){
+    int carnetE = Integer.parseInt(vistaConsulta.txtCarnet.getText());
+    ResultSet reservas = dao.getReservasEstudiante(carnetE);
+    if (reservas == null){
+        JOptionPane.showMessageDialog(vista, "Error al cargar reservas");
+    }else{
+        this.vistaReservas.setVisible(true);
+        DefaultTableModel table = new DefaultTableModel();
+        vistaReservas.reservasTable.setModel(table);
+        table.setColumnIdentifiers(new Object[]{"Numero","Estado", "Fecha", "Hora Inicio","Hora Fin", "Codigo Calificacion", "Asunto", "Organizador"});
+        try {
+            while(reservas.next()){
+                table.addRow(new Object[]{reservas.getInt("numero"), reservas.getString("estado"), reservas.getDate("fecha"), reservas.getString("horaInicio"), reservas.getString("horaFin"), reservas.getString("codigoCalificacion"), reservas.getString("asunto"), reservas.getInt("organizador")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+  }
 
+  
+  
   /**
    * Metodo que regresa a la ventana menu
    */

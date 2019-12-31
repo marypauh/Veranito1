@@ -67,4 +67,16 @@ public class EstudianteDAO {
     }
     return rs;
   }
+  
+  public ResultSet getReservasEstudiante(int pCarnet){
+    ResultSet rs = null;
+    try{
+      Connection conexion = Conexion.getConexion();
+      Statement ejecutor = conexion.createStatement();
+      rs = ejecutor.executeQuery("select * from esquema.Reserva where organizador = " + pCarnet );
+    }catch(SQLException e){
+      System.out.println(e);  
+    }
+    return rs;
+  }
 }
