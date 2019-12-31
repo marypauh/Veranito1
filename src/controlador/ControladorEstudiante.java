@@ -1,9 +1,12 @@
 package controlador;
+import conexion.Conexion;
 import vista.AgregarEstudianteForm; 
 import dao.EstudianteDAO; 
 import java.awt.event.ActionEvent; 
 import logicadenegocios.Estudiante; 
 import java.awt.event.ActionListener; 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException; 
 import java.util.logging.Level; 
@@ -51,8 +54,7 @@ public class ControladorEstudiante implements ActionListener {
       case "Menu":
         volverMenu();
         break;
-      case "Consular":
-        System.out.println("2");
+      case "Consultar":
         getInfoEstudiante();
         break;
       case "Volver":
@@ -93,23 +95,26 @@ public class ControladorEstudiante implements ActionListener {
   }
   
   public void getInfoEstudiante(){
-    int carnetEE = Integer.parseInt(vistaConsulta.txtCarnet.getText());
-    System.out.println(carnetEE);
-    ResultSet rs;
-    rs = dao.storeProcedureConsultarEstudiante(carnetEE);
-    System.out.println(rs);
-    if (rs == null){
-      JOptionPane.showMessageDialog(vistaConsulta, "El estudiante no existe");
-    }else{
-        try {
-            vistaConsulta.txtNombre.setText(rs.getString(2));
-            vistaConsulta.txtCarrera.setText(rs.getString(3));
-            vistaConsulta.txtEmail.setText(rs.getString(4));
-            vistaConsulta.txtCalificacion.setText(rs.getString(5));
-            vistaConsulta.txtTelefono.setText(rs.getString(6));
-        } catch (SQLException ex) {
-            Logger.getLogger(ControladorEstudiante.class.getName()).log(Level.SEVERE, null, ex);
-        }
+   try{
+     int carnetEE = Integer.parseInt(vistaConsulta.txtCarnet.getText()); 
+     Connection conexion = Conexion.getConexion(); 
+     String query = "{call dbo.consultarEstudiante(?,?,?,?,?,?)}";
+      CallableStatement consulta = conexion.prepareCall(query);
+      consulta.setInt(1,carnetEE);
+      consulta.registerOutParameter(2, java.sql.Types.VARCHAR);
+      consulta.registerOutParameter(3, java.sql.Types.VARCHAR);
+      consulta.registerOutParameter(4, java.sql.Types.VARCHAR);
+      consulta.registerOutParameter(5, java.sql.Types.INTEGER);
+      consulta.registerOutParameter(6, java.sql.Types.VARCHAR);
+      consulta.execute();
+      
+      vistaConsulta.txtNombre.setText(consulta.getString(2));
+      vistaConsulta.txtCarrera.setText(consulta.getString(3));
+      vistaConsulta.txtEmail.setText(consulta.getString(4));
+      vistaConsulta.txtCalificacion.setText(Integer.toString(consulta.getInt(5)));
+      vistaConsulta.txtTelefono.setText(consulta.getString(6));
+    } catch(SQLException e){
+      System.out.println("Error: " + e.getMessage());
     }
   }
   
