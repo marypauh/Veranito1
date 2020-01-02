@@ -18,6 +18,9 @@ import logicadenegocios.Sala;
 import vista.RegistrarSalaForm;
 import vista.SeleccionarHorarioForm;
 import vista.AgregarRecursosSalaForm;
+import vista.ModificarSalaForm;
+import vista.MostrarSalaForm;
+import vista.MostrarRecursosDispForm;
 
 /**
  *
@@ -31,6 +34,11 @@ public class ControladorSala implements ActionListener{
   public RegistrarSalaForm vista;
   public SeleccionarHorarioForm vistaHorario;
   public AgregarRecursosSalaForm vistaRecurso;
+  public MostrarSalaForm vistaMostrarSala = new MostrarSalaForm();
+  public ModificarSalaForm vistaModSala = new ModificarSalaForm();
+  public MostrarRecursosDispForm vistaRecursosDisp = new MostrarRecursosDispForm();
+
+
           
   public ControladorSala(RegistrarSalaForm pVista , Sala pModelo,SeleccionarHorarioForm pVistaH,AgregarRecursosSalaForm pVistaR  ){
     vista = pVista;
@@ -47,6 +55,12 @@ public class ControladorSala implements ActionListener{
     this.vistaHorario.btnSelect.addActionListener(this);
     this.vistaRecurso.btnAgregar.addActionListener(this);
     this.vistaRecurso.btnListo.addActionListener(this);
+    this.vistaMostrarSala.btnGuardar.addActionListener(this);
+    this.vistaModSala.btnBuscar.addActionListener(this);
+    this.vistaMostrarSala.btnAgregarR.addActionListener(this);
+    this.vistaMostrarSala.btnEliminar.addActionListener(this);
+    this.vistaRecursosDisp.btnCerrar.addActionListener(this);
+    this.vistaRecursosDisp.btnAgregarNuevoR.addActionListener(this);
   }
   
     /**
@@ -70,6 +84,20 @@ public class ControladorSala implements ActionListener{
         break;
       case "Listo":
         registrarSala();
+      case "Buscar":
+        getIDMod();
+        break;
+      case "Agregar Nuevo Recurso":
+        nuevoRecurso();
+        break;
+      case "Eliminar Recurso":
+        eliminarRecurso();
+        break;
+      case "Agregar a Sala":
+       agregarRecurso();
+        break;
+      case "Guardar Cambios":
+        guardarCambios();
         break;
       default:
         break;
@@ -84,29 +112,32 @@ public void getInfoSala(){
     int capacidad = Integer.parseInt(vista.txtCapacidad.getText());
     String ubicacion = vista.txtUbicacion.getText();
     String identificador = vista.txtId.getText();
-    modelo = new Sala(identificador, ubicacion, capacidad);
-    vista.setVisible(false);
-    vistaHorario.setVisible(true);
-    ResultSet rs;
-    rs = horario.getHorarios();
-    if (rs == null){
-      JOptionPane.showMessageDialog(vista, "Error al cargar horarios");
+    System.out.print(dao.getSala(identificador));
+    if( dao.getSala(identificador) != null){
+      JOptionPane.showMessageDialog(vista, "Ya existe la sala " + identificador);
     }else{
-      DefaultTableModel table = new DefaultTableModel();
-      vistaHorario.horariosTable.setModel(table);
-      table.setColumnIdentifiers(new Object[]{"ID","Hora de Inicio", "Hora Fin ", "Dias"});
-      try {
-        while(rs.next()){
-          table.addRow(new Object[]{rs.getInt("idHorario"), rs.getString("horaInicio"), rs.getString("horaFin"),rs.getString("dias")});
-        }
+      modelo = new Sala(identificador, ubicacion, capacidad);
+      vista.setVisible(false);
+      vistaHorario.setVisible(true);
+      ResultSet rs;
+      rs = horario.getHorarios();
+      if (rs == null){
+        JOptionPane.showMessageDialog(vista, "Error al cargar horarios");
+      }else{
+        DefaultTableModel table = new DefaultTableModel();
+        vistaHorario.horariosTable.setModel(table);
+        table.setColumnIdentifiers(new Object[]{"ID","Hora de Inicio", "Hora Fin ", "Dias"});
+        try {
+          while(rs.next()){
+            table.addRow(new Object[]{rs.getInt("idHorario"), rs.getString("horaInicio"), rs.getString("horaFin"),rs.getString("dias")});
+          }
         } catch (SQLException ex) {
           Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-      } else {
-        JOptionPane.showMessageDialog(null, "Error al ingresar los datos, compruebe los datos "
-            + "ingresados");
       }
+    }
+  }else {
+    JOptionPane.showMessageDialog(null, "Error al ingresar los datos, compruebe los datos ingresados");}
   } 
 
 public void setHorarioSala(){
@@ -165,4 +196,110 @@ public void registrarSala(){
     }
 }
 
+
+public void getIDMod(){
+  try {
+    String id = vistaModSala.txtID.getText();
+    ResultSet rs = dao.getSala(id);
+    System.out.println(rs.next());
+    if ( "".equals(id) || rs == null ){
+      JOptionPane.showMessageDialog(vista, "No existe una sala con ese identificador");
+    }else{
+      try{
+        String ubicacion = rs.getString("ubicacion");
+        vistaMostrarSala.lblID.setText(id);
+        vistaMostrarSala.txtUbicacion.setText(ubicacion);
+        modelo.setIdentificador(id);
+        
+        
+        ResultSet recursos = dao.getRecursosSala(id);
+        if (recursos == null){
+          JOptionPane.showMessageDialog(vista, "Error al cargar recursos");
+        }else{
+          updateTabla(recursos);
+          vistaModSala.setVisible(false);
+          vistaMostrarSala.setVisible(true);
+          }
+        }catch(SQLException ex) {
+          Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }   
+  } catch (SQLException ex) {
+    Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+  }
+}
+
+
+  public void nuevoRecurso(){
+    ResultSet recursos = dao.recursosNotSala(modelo.getIdentificador());
+    vistaRecursosDisp.setVisible(true);
+    if (recursos == null){
+      JOptionPane.showMessageDialog(vista, "Error al cargar recursos");
+    }else{
+    DefaultTableModel table = new DefaultTableModel();
+    vistaRecursosDisp.recursosNuevos.setModel(table);
+    table.setColumnIdentifiers(new Object[]{"nombre","detalle"});
+    try {
+      while(recursos.next()){
+        table.addRow(new Object[]{recursos.getString("nombre"), recursos.getString("detalle")});    
+      }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(vistaRecursosDisp, "No hay mas recursos que mostrar");
+        Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+}
+
+
+public void eliminarRecurso(){
+  int row = vistaMostrarSala.recursosSalaTable.getSelectedRow();
+  String nombre = vistaMostrarSala.recursosSalaTable.getValueAt(row, 0).toString();
+  if( dao.deleteRecurso(modelo.getIdentificador(), nombre) == true){
+     JOptionPane.showMessageDialog(vistaMostrarSala, "Se ha eliminado el recurso: "+ nombre +"exitosamente");
+     ResultSet rs = dao.getRecursosSala(modelo.getIdentificador());
+     updateTabla(rs);
+    }else{
+    JOptionPane.showMessageDialog(vistaMostrarSala, "Ha ocurrido un error");
+  }
+}
+
+  public void guardarCambios(){
+    modelo.setEstado(vistaMostrarSala.estadoCB.getSelectedItem().toString());
+    modelo.setUbicacion(vistaMostrarSala.txtUbicacion.getText());
+    if (dao.updateSala(modelo) == true){
+      JOptionPane.showMessageDialog(vistaMostrarSala, "Se han guardado los cambios");
+    }else{
+      JOptionPane.showMessageDialog(vistaMostrarSala, "Ha ocurrido un error");
+    }
+  }
+
+private void updateTabla(ResultSet recursos){
+  if (recursos == null){
+    JOptionPane.showMessageDialog(vistaMostrarSala, "No existen recursos ");
+  }
+  DefaultTableModel table = new DefaultTableModel();
+  vistaMostrarSala.recursosSalaTable.setModel(table);
+  table.setColumnIdentifiers(new Object[]{"nombre","detalle"});
+  try {
+    while(recursos.next()){
+      table.addRow(new Object[]{recursos.getString("nombreRecurso"), recursos.getString("detalle")});
+    }
+  } catch (SQLException ex) {
+    Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+  }
+}
+
+
+public void agregarRecurso(){
+  int row = vistaRecursosDisp.recursosNuevos.getSelectedRow();
+  String nombre = vistaRecursosDisp.recursosNuevos.getValueAt(row, 0).toString();
+  String detalle = vistaRecursosDisp.recursosNuevos.getValueAt(row, 1).toString();
+  Recurso recurso = new Recurso(nombre, detalle);
+  if (dao.agregarRecurso(modelo.getIdentificador(), recurso) == true){
+    JOptionPane.showMessageDialog(vista, "Se ha agregado exitosamente el recurso: " + nombre);
+    updateTabla(dao.getRecursosSala(modelo.getIdentificador()));
+  }else{
+    JOptionPane.showMessageDialog(vista, "error");
+  }
+ }
 }

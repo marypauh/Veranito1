@@ -8,7 +8,9 @@ package dao;
 import conexion.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import logicadenegocios.Horario;
 import logicadenegocios.Recurso;
@@ -82,5 +84,96 @@ public class SalaDAO {
       System.out.println(e);
     } return res;
   }
+  
+  
+  public ResultSet getRecursosSala(String pIdentificador){
+    ResultSet res = null;
+    try{
+      String identificador = pIdentificador;
+      Connection conexion = Conexion.getConexion();
+      Statement ejecutor = conexion.createStatement();
+      res = ejecutor.executeQuery("execute dbo.getRecursoSala '" + identificador +"'");
+    }catch(SQLException e){
+      System.out.println(e);
+    } return res;
+  }
+  
+  
+  public ResultSet getSala(String pIdentificador){
+    ResultSet res = null;
+    try{
+      String identificador = pIdentificador;
+      Connection conexion = Conexion.getConexion();
+      Statement ejecutor = conexion.createStatement();
+      res = ejecutor.executeQuery(" execute dbo.getSala '" + identificador +"'");
+    }catch(SQLException e){
+      System.out.println(e);
+    } return res;
+  }
+  
+  public boolean updateSala(Sala sala){
+    boolean res = false;
+    String pIdentificador = sala.getIdentificador();
+    String pUbicacion = sala.getUbicacion();
+    String pEstado = sala.getEstado();
+    try{
+      Connection conexion = Conexion.getConexion();
+      String query = "dbo.modificarSala @idSala = ?, @ubicacion = ? , @estado = ?";
+      CallableStatement consulta = conexion.prepareCall(query);
+      consulta.setString(1, pIdentificador);
+      consulta.setString(2,pUbicacion);
+      consulta.setString(3,pEstado);
+      consulta.execute();
+      res = true;
+    }catch(SQLException e){
+      System.out.println(e);
+    }return res;
+  }
+  
+  public boolean deleteRecurso(String pIdentificador, String pNombre){
+    boolean res = false;
+    try{
+      Connection conexion = Conexion.getConexion();
+      String query = "dbo.deleteRecurso  @idSala = ? , @nombreR = ?";
+      CallableStatement consulta = conexion.prepareCall(query);
+      consulta.setString(1, pIdentificador);
+      consulta.setString(2,pNombre);
+      consulta.execute();
+      res = true;
+    }catch(SQLException e){
+      System.out.println(e);
+    }return res;
+  }
+  
+  
+    
+  public ResultSet recursosNotSala(String pIdentificador){
+    ResultSet res = null;
+    try{
+      String identificador = pIdentificador;
+      Connection conexion = Conexion.getConexion();
+      Statement ejecutor = conexion.createStatement();
+      res = ejecutor.executeQuery("execute dbo.getRecursoNotSala '" + identificador +"'");
+    }catch(SQLException e){
+      System.out.println(e);
+    } return res;
+  }
+  
+  public boolean agregarRecurso(String pIdentificador, Recurso pRecurso){
+    String pNombre = pRecurso.getNombre();
+    boolean res = false;
+    try{
+      Connection conexion = Conexion.getConexion();
+      String query = "execute dbo.agregarSalaRecurso  @identificadorSala = ?, @Recurso = ?";
+      CallableStatement consulta = conexion.prepareCall(query);
+      consulta.setString(1, pIdentificador);
+      consulta.setString(2,pNombre);
+      consulta.execute();
+      res = true;
+    }catch(SQLException e){
+      System.out.println(e);
+    }return res;
+  }
+  
   
 }

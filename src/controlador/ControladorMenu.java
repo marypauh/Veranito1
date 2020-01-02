@@ -35,6 +35,7 @@ public class ControladorMenu implements ActionListener {
     this.vista.btnAgregarEstudiante.addActionListener(this);
     this.vista.btnCerrar.addActionListener(this);
     this.vista.btnAgregarSala.addActionListener(this);
+    this.vista.btnModificarSala.addActionListener(this);
   }
   
   
@@ -49,6 +50,9 @@ public class ControladorMenu implements ActionListener {
         break;
       case "Agregar Sala": 
         agregarSala();
+        break;
+      case "Modificar Sala": 
+        modificarSala();
         break;
       case "Cerrar":
         this.vista.cerrarMenu();
@@ -69,6 +73,15 @@ public class ControladorMenu implements ActionListener {
       Sala sala = new Sala();
       ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
       controlador.vista.setVisible(true);
+  }
+  
+  private void modificarSala(){
+    RegistrarSalaForm r = new RegistrarSalaForm();
+    SeleccionarHorarioForm h = new SeleccionarHorarioForm();
+    AgregarRecursosSalaForm recurso = new AgregarRecursosSalaForm();
+    Sala sala = new Sala();
+    ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
+    controlador.vistaModSala.setVisible(true);
   }
 }
   

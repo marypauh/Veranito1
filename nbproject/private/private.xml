@@ -3,14 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/dao/SalaDAO.java</file>
-            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/vista/MenuForm.java</file>
-            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/dao/HorarioDAO.java</file>
-            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/vista/RegistrarSalaForm.java</file>
-            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/dao/EstudianteDAO.java</file>
-            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/controlador/ControladorSala.java</file>
-            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/controlador/ControladorEstudiante.java</file>
-            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/controlador/ControladorMenu.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/HorarioDAO.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/controlador/ControladorSala.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/AgregarRecursosSalaForm.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/ConsultarEstudianteForm.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/controlador/Gestor.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/logicadenegocios/Recurso.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/conexion/Conexion.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/SalaDAO.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/logicadenegocios/Horario.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/RecursoDAO.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/MenuForm.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/MostrarSalaForm.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/logicadenegocios/Participante.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/ModificarSalaForm.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/ParticipanteDAO.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/controlador/ControladorMenu.java</file>
+            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/MostrarRecursosDispForm.java</file>
         </group>
     </open-files>
 </project-private>
