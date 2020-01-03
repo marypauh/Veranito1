@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import dao.ParticipanteDAO;
 import dao.ReservaDAO;
 import dao.SalaDAO;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,7 @@ public class ControladorReserva implements ActionListener {
   public ReservaDAO dao;
   public Reserva logicadenegocios;
   public ArrayList<Participante> listaParticipantes;
+  public ParticipanteDAO participanteDao;
 
   
   /**
@@ -46,6 +48,7 @@ public class ControladorReserva implements ActionListener {
     logicadenegocios = pModelo;
     dao = new ReservaDAO();
     listaParticipantes = new ArrayList<Participante>();
+    participanteDao = new ParticipanteDAO();
     this.vista.btnFiltrarSalas.addActionListener(this);
     this.vista.btnReservarSala.addActionListener(this);
     this.vista.btnVolver.addActionListener(this);
@@ -97,24 +100,25 @@ public class ControladorReserva implements ActionListener {
    * @throws SQLException 
    */
   public void agregarReserva() throws ParseException, SQLException{
-      int organizador = Integer.parseInt(vista.txtCarnetEstudiante.getText());
-      SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-      Date fecha = formatter.parse(vista.txtFecha.getText());
-      String horaInicio = vista.txtHoraInicio.getText();
-      String horaFin = vista.txtHoraFin.getText();
-      String asunto = vista.txtAsunto.getText();
-      String codigoCalificacion = "ABEMARIA";
-      String idSala = (String)vista.salasTable.getValueAt(vista.salasTable.getSelectedRow(),0);
-      System.out.println(idSala);
-      logicadenegocios = new Reserva(fecha, horaInicio,horaFin,codigoCalificacion,asunto,organizador,idSala);
-      Reserva reserva = dao.agregarReserva(logicadenegocios);
-      if (reserva != null) {
-          vista.setVisible(false);
-          JOptionPane.showMessageDialog(vista, "Se reservo la sala exitosamente");
-          vista.setVisible(true);
-      } else {
-          JOptionPane.showMessageDialog(vista, "No es posible reservar la sala");
-      }
+    int organizador = Integer.parseInt(vista.txtCarnetEstudiante.getText());
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    Date fecha = formatter.parse(vista.txtFecha.getText());
+    String horaInicio = vista.txtHoraInicio.getText();
+    String horaFin = vista.txtHoraFin.getText();
+    String asunto = vista.txtAsunto.getText();
+    String idSala = (String)vista.salasTable.getValueAt(vista.salasTable.getSelectedRow(),0);
+    int idReserva = dao.obtenerIdReserva();
+    String codigoCalificacion = idSala+"-"+organizador+"-"+idReserva;
+    logicadenegocios = new Reserva(fecha, horaInicio,horaFin,codigoCalificacion,asunto,organizador,idSala);
+    Reserva reserva = dao.agregarReserva(logicadenegocios);
+    int participantesAgregados = participanteDao.agregarParticipantes(listaParticipantes, idReserva,12);
+    if (reserva != null&&participantesAgregados>0){
+      vista.setVisible(false);
+      JOptionPane.showMessageDialog(vista, "Se reservo la sala exitosamente");
+      vista.setVisible(true);
+    } else {
+      JOptionPane.showMessageDialog(vista,"No es posible reservar la sala");
+    }
   }
   
   /**
@@ -136,14 +140,13 @@ public class ControladorReserva implements ActionListener {
         } catch (SQLException ex) {
             Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }  
+    }
   }
   
   public void agregarParticipantes(){
     String nombre = vista.txtNombre.getText();
     String email = vista.txtEmail.getText();
     Participante participante = new Participante(nombre, email);
-    
     listaParticipantes.add(participante);
     JOptionPane.showMessageDialog(vista,"Se agrego el participante exitosamente");
     vista.txtNombre.setText(null);
