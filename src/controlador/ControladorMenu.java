@@ -2,12 +2,14 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import logicadenegocios.Estudiante;
+import logicadenegocios.Reserva;
 import logicadenegocios.Sala;
 import vista.MenuForm;
 import vista.AgregarEstudianteForm;
 import vista.AgregarRecursosSalaForm;
 import vista.ConsultarEstudianteForm;
 import vista.RegistrarSalaForm;
+import vista.ReservarSalaForm;
 import vista.ReservasEstudianteForm;
 import vista.SeleccionarHorarioForm;
 
@@ -36,6 +38,7 @@ public class ControladorMenu implements ActionListener {
     this.vista.btnCerrar.addActionListener(this);
     this.vista.btnAgregarSala.addActionListener(this);
     this.vista.btnModificarSala.addActionListener(this);
+    this.vista.btnReservarSala.addActionListener(this);
   }
   
   
@@ -53,6 +56,9 @@ public class ControladorMenu implements ActionListener {
         break;
       case "Modificar Sala": 
         modificarSala();
+        break;
+      case "Reservar Sala": 
+        reservarSala();
         break;
       case "Cerrar":
         this.vista.cerrarMenu();
@@ -82,6 +88,13 @@ public class ControladorMenu implements ActionListener {
     Sala sala = new Sala();
     ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
     controlador.vistaModSala.setVisible(true);
+  }
+  
+  private void reservarSala(){
+    ReservarSalaForm vistaAgregarReservas = new ReservarSalaForm();
+    Reserva reserva = new Reserva();
+    ControladorReserva controladorReserva = new ControladorReserva(vistaAgregarReservas, reserva);
+    controladorReserva.vista.setVisible(true);
   }
 }
   

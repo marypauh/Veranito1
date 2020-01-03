@@ -28,7 +28,7 @@ public class ControladorEstudiante implements ActionListener {
   public AgregarEstudianteForm vista;
   public EstudianteDAO dao;
   public Estudiante logicadenegocios;
-   public ConsultarEstudianteForm vistaConsulta;
+  public ConsultarEstudianteForm vistaConsulta;
   public ReservasEstudianteForm vistaReservas;
   
   
@@ -142,10 +142,10 @@ public class ControladorEstudiante implements ActionListener {
         this.vistaReservas.setVisible(true);
         DefaultTableModel table = new DefaultTableModel();
         vistaReservas.reservasTable.setModel(table);
-        table.setColumnIdentifiers(new Object[]{"Numero","Estado", "Fecha", "Hora Inicio","Hora Fin", "Codigo Calificacion", "Asunto", "Organizador"});
+        table.setColumnIdentifiers(new Object[]{"Numero","Estado", "Fecha", "Hora Inicio","Hora Fin", "Codigo Calificacion", "Asunto", "Organizador","Id Sala"});
         try {
             while(reservas.next()){
-                table.addRow(new Object[]{reservas.getInt("numero"), reservas.getString("estado"), reservas.getDate("fecha"), reservas.getString("horaInicio"), reservas.getString("horaFin"), reservas.getString("codigoCalificacion"), reservas.getString("asunto"), reservas.getInt("organizador")});
+                table.addRow(new Object[]{reservas.getInt("numero"), reservas.getString("estado"), reservas.getDate("fecha"), reservas.getString("horaInicio"), reservas.getString("horaFin"), reservas.getString("codigoCalificacion"), reservas.getString("asunto"), reservas.getInt("organizador"),reservas.getString("idSala")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);

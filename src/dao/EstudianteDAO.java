@@ -59,7 +59,7 @@ public class EstudianteDAO {
   public ResultSet storeProcedureConsultarEstudiante(int pCarnet){
     ResultSet rs = null;
     try{
-      Connection conexion = Conexion.getConexion();
+      conexion = Conexion.getConexion();
       Statement ejecutor = conexion.createStatement();
       rs = ejecutor.executeQuery("{call dbo.consultarEstudiante(pCarnet)}");
     }catch(SQLException e){
@@ -71,7 +71,7 @@ public class EstudianteDAO {
   public ResultSet getReservasEstudiante(int pCarnet){
     ResultSet rs = null;
     try{
-      Connection conexion = Conexion.getConexion();
+      conexion = Conexion.getConexion();
       Statement ejecutor = conexion.createStatement();
       rs = ejecutor.executeQuery("select * from esquema.Reserva where organizador = " + pCarnet );
     }catch(SQLException e){

@@ -44,6 +44,7 @@ public class MenuForm extends javax.swing.JFrame {
         btnAgregarSala = new javax.swing.JButton();
         btnConsultarE = new javax.swing.JButton();
         btnModificarSala = new javax.swing.JButton();
+        btnReservarSala = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +58,8 @@ public class MenuForm extends javax.swing.JFrame {
 
         btnModificarSala.setText("Modificar Sala");
 
+        btnReservarSala.setText("Reservar Sala");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,7 +71,8 @@ public class MenuForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAgregarSala)
                             .addComponent(btnAgregarEstudiante)
-                            .addComponent(btnConsultarE)))
+                            .addComponent(btnConsultarE)
+                            .addComponent(btnReservarSala)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addComponent(btnModificarSala))
@@ -80,7 +84,9 @@ public class MenuForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(38, 38, 38)
+                .addComponent(btnReservarSala)
+                .addGap(18, 18, 18)
                 .addComponent(btnAgregarEstudiante)
                 .addGap(29, 29, 29)
                 .addComponent(btnAgregarSala)
@@ -103,5 +109,6 @@ public class MenuForm extends javax.swing.JFrame {
     public javax.swing.JButton btnCerrar;
     public javax.swing.JButton btnConsultarE;
     public javax.swing.JButton btnModificarSala;
+    public javax.swing.JButton btnReservarSala;
     // End of variables declaration//GEN-END:variables
 }

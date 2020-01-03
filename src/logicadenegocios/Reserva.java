@@ -16,11 +16,23 @@ public class Reserva {
   private String codigoCalificacion;
   private String asunto;
   private int numero;
-  private Estudiante organizador;
+  private int organizador;
   private ArrayList<Participante> listaParticipantes;
-  private Sala salaAsignada;
+  private String salaAsignada;
   public ArrayList<Incidente> listaIncidentes;
 
+  public Reserva(Date pFecha, String pHoraInicio, String pHoraFin, String pCodigoCalificacion, String pAsunto, int pOrganizador, String pSalaAsignada) {
+    this.fecha = pFecha;
+    this.horaInicio = pHoraInicio;
+    this.horaFin = pHoraFin;
+    this.codigoCalificacion = pCodigoCalificacion;
+    this.asunto = pAsunto;
+    this.organizador = pOrganizador;
+    this.salaAsignada = pSalaAsignada;
+  }
+
+  public Reserva() {}
+  
   public String getEstado() {
     return estado;
   }
@@ -78,11 +90,11 @@ public class Reserva {
     this.numero = pNumero;
   }
 
-  public Estudiante getOrganizador() {
+  public int getOrganizador() {
     return organizador;
   }
 
-  public void setOrganizador(Estudiante pOrganizador) {
+  public void setOrganizador(int pOrganizador) {
     this.organizador = pOrganizador;
   }
 
@@ -94,11 +106,11 @@ public class Reserva {
     this.listaParticipantes = pListaParticipantes;
   }
 
-  public Sala getSalaAsignada() {
+  public String getSalaAsignada() {
     return salaAsignada;
   }
 
-  public void setSalaAsignada(Sala pSalaAsignada) {
+  public void setSalaAsignada(String pSalaAsignada) {
     this.salaAsignada = pSalaAsignada;
   }
 
