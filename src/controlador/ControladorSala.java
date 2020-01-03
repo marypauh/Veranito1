@@ -99,6 +99,9 @@ public class ControladorSala implements ActionListener{
       case "Guardar Cambios":
         guardarCambios();
         break;
+      case "Cerrar":
+        vistaRecursosDisp.setVisible(false);
+        break;
       default:
         break;
     }
@@ -270,7 +273,7 @@ public void eliminarRecurso(){
       JOptionPane.showMessageDialog(vistaMostrarSala, "Se han guardado los cambios");
     }else{
       JOptionPane.showMessageDialog(vistaMostrarSala, "Ha ocurrido un error");
-    }
+    } vistaMostrarSala.setVisible(false);
   }
 
 private void updateTabla(ResultSet recursos){
