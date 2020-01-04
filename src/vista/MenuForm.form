@@ -31,7 +31,11 @@
                           <Component id="btnAgregarSala" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAgregarEstudiante" min="-2" max="-2" attributes="0"/>
                           <Component id="btnConsultarE" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnReservarSala" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnReservarSala" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                              <Component id="btnRegistrarIncidente" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -43,7 +47,7 @@
                       <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="109" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,7 +55,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-              <Component id="btnReservarSala" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnReservarSala" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRegistrarIncidente" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnAgregarEstudiante" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
@@ -111,6 +118,14 @@
     <Component class="javax.swing.JButton" name="btnReservarSala">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reservar Sala"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRegistrarIncidente">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Registrar Incidente"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

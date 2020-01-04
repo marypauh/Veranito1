@@ -2,12 +2,14 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import logicadenegocios.Estudiante;
+import logicadenegocios.Incidente;
 import logicadenegocios.Reserva;
 import logicadenegocios.Sala;
 import vista.MenuForm;
 import vista.AgregarEstudianteForm;
 import vista.AgregarRecursosSalaForm;
 import vista.ConsultarEstudianteForm;
+import vista.RegistrarIncidenteReservaForm;
 import vista.RegistrarSalaForm;
 import vista.ReservarSalaForm;
 import vista.ReservasEstudianteForm;
@@ -39,6 +41,7 @@ public class ControladorMenu implements ActionListener {
     this.vista.btnAgregarSala.addActionListener(this);
     this.vista.btnModificarSala.addActionListener(this);
     this.vista.btnReservarSala.addActionListener(this);
+    this.vista.btnRegistrarIncidente.addActionListener(this);
   }
   
   
@@ -59,6 +62,9 @@ public class ControladorMenu implements ActionListener {
         break;
       case "Reservar Sala": 
         reservarSala();
+        break;
+      case "Registrar Incidente": 
+        registrarIncidente();
         break;
       case "Cerrar":
         this.vista.cerrarMenu();
@@ -95,6 +101,13 @@ public class ControladorMenu implements ActionListener {
     Reserva reserva = new Reserva();
     ControladorReserva controladorReserva = new ControladorReserva(vistaAgregarReservas, reserva);
     controladorReserva.vista.setVisible(true);
+  }
+  
+  private void registrarIncidente(){
+     RegistrarIncidenteReservaForm vistaRegistrarIncidentes = new RegistrarIncidenteReservaForm();
+      Incidente incidente = new Incidente();
+      ControladorIncidente controladorIncidente = new ControladorIncidente(vistaRegistrarIncidentes,incidente);
+      controladorIncidente.vista.setVisible(true);
   }
 }
   

@@ -29,7 +29,6 @@ public class EnviarCorreo {
       message.setSubject(sub);
       message.setText(msg);
       Transport.send(message);
-      JOptionPane.showMessageDialog(null,"Datos enviados al correo electrónico");
     } catch (MessagingException e) {
       JOptionPane.showMessageDialog(null,"Error!");
       throw new RuntimeException(e);

@@ -45,6 +45,7 @@ public class MenuForm extends javax.swing.JFrame {
         btnConsultarE = new javax.swing.JButton();
         btnModificarSala = new javax.swing.JButton();
         btnReservarSala = new javax.swing.JButton();
+        btnRegistrarIncidente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +61,8 @@ public class MenuForm extends javax.swing.JFrame {
 
         btnReservarSala.setText("Reservar Sala");
 
+        btnRegistrarIncidente.setText("Registrar Incidente");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,20 +75,25 @@ public class MenuForm extends javax.swing.JFrame {
                             .addComponent(btnAgregarSala)
                             .addComponent(btnAgregarEstudiante)
                             .addComponent(btnConsultarE)
-                            .addComponent(btnReservarSala)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnReservarSala)
+                                .addGap(41, 41, 41)
+                                .addComponent(btnRegistrarIncidente))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addComponent(btnModificarSala))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(184, 184, 184)
                         .addComponent(btnCerrar)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(btnReservarSala)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReservarSala)
+                    .addComponent(btnRegistrarIncidente))
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarEstudiante)
                 .addGap(29, 29, 29)
@@ -109,6 +117,7 @@ public class MenuForm extends javax.swing.JFrame {
     public javax.swing.JButton btnCerrar;
     public javax.swing.JButton btnConsultarE;
     public javax.swing.JButton btnModificarSala;
+    public javax.swing.JButton btnRegistrarIncidente;
     public javax.swing.JButton btnReservarSala;
     // End of variables declaration//GEN-END:variables
 }

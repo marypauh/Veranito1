@@ -115,6 +115,8 @@ public class ControladorReserva implements ActionListener {
     if (reserva != null&&participantesAgregados>0){
       vista.setVisible(false);
       JOptionPane.showMessageDialog(vista, "Se reservo la sala exitosamente");
+      participanteDao.enviarCorreoParticipantes(listaParticipantes,idSala,horaInicio,horaFin,fecha);
+      JOptionPane.showMessageDialog(vista,"Correo de invitación enviado a los participantes");
       vista.setVisible(true);
     } else {
       JOptionPane.showMessageDialog(vista,"No es posible reservar la sala");
