@@ -42,6 +42,7 @@ public class ControladorMenu implements ActionListener {
     this.vista.btnModificarSala.addActionListener(this);
     this.vista.btnReservarSala.addActionListener(this);
     this.vista.btnRegistrarIncidente.addActionListener(this);
+    this.vista.btnConsultarSala.addActionListener(this);
   }
   
   
@@ -68,6 +69,9 @@ public class ControladorMenu implements ActionListener {
         break;
       case "Cerrar":
         this.vista.cerrarMenu();
+        break;
+      case "Consultar Sala":
+        consultarSala();
         break;
       case "Consultar Estudiante":
        controladorEstudiante.vistaConsulta.abrirVentanaAnterior(vistaConsulta);
@@ -108,6 +112,15 @@ public class ControladorMenu implements ActionListener {
       Incidente incidente = new Incidente();
       ControladorIncidente controladorIncidente = new ControladorIncidente(vistaRegistrarIncidentes,incidente);
       controladorIncidente.vista.setVisible(true);
+  }
+  
+  private void consultarSala(){
+    RegistrarSalaForm r = new RegistrarSalaForm();
+    SeleccionarHorarioForm h = new SeleccionarHorarioForm();
+    AgregarRecursosSalaForm recurso = new AgregarRecursosSalaForm();
+    Sala sala = new Sala();
+    ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
+    controlador.vistaConsulta.setVisible(true);
   }
 }
   

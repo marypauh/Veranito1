@@ -42,5 +42,18 @@ public class HorarioDAO {
     }
     return rs;
   }
+  
+  
+  public ResultSet getHorarioSala(String pIdSala){
+    ResultSet res = null;
+    try{
+      String idSala = pIdSala;
+      Connection conexion = Conexion.getConexion();
+      Statement ejecutor = conexion.createStatement();
+      res = ejecutor.executeQuery("dbo.getHorarioSala '" + idSala +"'");
+    }catch(SQLException e){
+      System.out.println(e);
+    } return res;
+  }
 }
  

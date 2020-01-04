@@ -109,7 +109,7 @@ public class ControladorReserva implements ActionListener {
     String idSala = (String)vista.salasTable.getValueAt(vista.salasTable.getSelectedRow(),0);
     int idReserva = dao.obtenerIdReserva();
     String codigoCalificacion = idSala+"-"+organizador+"-"+idReserva;
-    logicadenegocios = new Reserva(fecha, horaInicio,horaFin,codigoCalificacion,asunto,organizador,idSala);
+    logicadenegocios = new Reserva(fecha, horaInicio,horaFin,asunto,organizador,idSala);
     Reserva reserva = dao.agregarReserva(logicadenegocios);
     int participantesAgregados = participanteDao.agregarParticipantes(listaParticipantes, idReserva,12);
     if (reserva != null&&participantesAgregados>0){

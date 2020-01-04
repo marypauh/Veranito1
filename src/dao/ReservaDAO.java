@@ -75,4 +75,14 @@ public class ReservaDAO {
     }
     return idReserva+1;
   }
-  }  
+  
+  
+  public ResultSet getProxReservasSala(String pIdentificador) throws SQLException{
+    ResultSet res = null;
+    String identificador = pIdentificador;
+    Connection conexion = Conexion.getConexion();
+    Statement ejecutor = conexion.createStatement();
+    res = ejecutor.executeQuery("execute dbo.getProxReservas '" + identificador +"'");
+    return res;
+  }
+}  

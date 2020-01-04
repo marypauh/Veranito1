@@ -4,6 +4,8 @@ package controlador;
 import dao.SalaDAO;
 import dao.HorarioDAO;
 import dao.RecursoDAO;
+import dao.HorarioExcepcionDAO;
+import dao.ReservaDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -18,6 +20,7 @@ import logicadenegocios.Sala;
 import vista.RegistrarSalaForm;
 import vista.SeleccionarHorarioForm;
 import vista.AgregarRecursosSalaForm;
+import vista.ConsultaSalaForm;
 import vista.ModificarSalaForm;
 import vista.MostrarSalaForm;
 import vista.MostrarRecursosDispForm;
@@ -29,7 +32,9 @@ import vista.MostrarRecursosDispForm;
 public class ControladorSala implements ActionListener{
   public SalaDAO dao;
   public HorarioDAO horario;
+  public HorarioExcepcionDAO horarioExc;
   public RecursoDAO recurso;
+  public ReservaDAO reserva;
   public Sala modelo;
   public RegistrarSalaForm vista;
   public SeleccionarHorarioForm vistaHorario;
@@ -37,8 +42,7 @@ public class ControladorSala implements ActionListener{
   public MostrarSalaForm vistaMostrarSala = new MostrarSalaForm();
   public ModificarSalaForm vistaModSala = new ModificarSalaForm();
   public MostrarRecursosDispForm vistaRecursosDisp = new MostrarRecursosDispForm();
-
-
+  public ConsultaSalaForm vistaConsulta = new ConsultaSalaForm();
           
   public ControladorSala(RegistrarSalaForm pVista , Sala pModelo,SeleccionarHorarioForm pVistaH,AgregarRecursosSalaForm pVistaR  ){
     vista = pVista;
@@ -48,6 +52,8 @@ public class ControladorSala implements ActionListener{
     dao = new SalaDAO();
     horario = new HorarioDAO();
     recurso = new RecursoDAO();
+    horarioExc = new HorarioExcepcionDAO();
+    reserva = new ReservaDAO();
 //Encargado de administrar la base de datos
   
     this.vista.btnRegreso.addActionListener(this);
@@ -61,6 +67,8 @@ public class ControladorSala implements ActionListener{
     this.vistaMostrarSala.btnEliminar.addActionListener(this);
     this.vistaRecursosDisp.btnCerrar.addActionListener(this);
     this.vistaRecursosDisp.btnAgregarNuevoR.addActionListener(this);
+    this.vistaConsulta.btnBuscar.addActionListener(this);
+    this.vistaConsulta.btnCerrar.addActionListener(this);
   }
   
     /**
@@ -99,8 +107,12 @@ public class ControladorSala implements ActionListener{
       case "Guardar Cambios":
         guardarCambios();
         break;
+      case "Consultar":
+        consultarSala();
+        break;
       case "Cerrar":
         vistaRecursosDisp.setVisible(false);
+        vistaConsulta.setVisible(false);
         break;
       default:
         break;
@@ -305,4 +317,108 @@ public void agregarRecurso(){
     JOptionPane.showMessageDialog(vista, "error");
   }
  }
+
+
+public void consultarSala(){
+  try {
+    String id = vistaConsulta.txtID.getText();
+    ResultSet rs = dao.getSala(id);
+    modelo.setIdentificador(id);
+    rs.next();
+    if ( "".equals(id) || rs == null ){
+      JOptionPane.showMessageDialog(vista, "No existe una sala con ese identificador");
+    }else{
+      try{
+        String ubicacion = rs.getString("ubicacion");
+        int capacidad = rs.getInt("capacidadMax");
+        int calificacion = rs.getInt("calificacion");
+        String estado = rs.getString("estado");
+        vistaConsulta.txtUbicacion.setText(ubicacion);
+        vistaConsulta.txtEstado.setText(estado);
+        vistaConsulta.txtCalificacion.setText(Integer.toString(calificacion));
+        vistaConsulta.txtCapacidad.setText(Integer.toString(capacidad));
+        modelo.setIdentificador(id);
+        ResultSet recursos = dao.getRecursosSala(id);
+        if (recursos == null){
+          JOptionPane.showMessageDialog(vistaConsulta, "Error al cargar recursos");
+        }else{
+          DefaultTableModel table = new DefaultTableModel();
+          vistaConsulta.recursosTable.setModel(table);
+          table.setColumnIdentifiers(new Object[]{"Nombre Recurso ","Detalle"});
+          try {
+            while(recursos.next()){
+            table.addRow(new Object[]{recursos.getString("nombreRecurso"), recursos.getString("detalle")});    
+            }
+          mostrarReservas();
+          if (mostrarHorario() == false){
+            JOptionPane.showMessageDialog(vistaConsulta, "Error al cargar horario");
+ 
+          }
+          } catch (SQLException ex) {
+            Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        }
+        
+        }catch(SQLException ex) {
+          Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }   
+  } catch (SQLException ex) {
+    Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+  }
+}
+
+  public boolean mostrarHorario(){
+    boolean res = false;
+    ResultSet horario = this.horario.getHorarioSala(modelo.getIdentificador());
+    if (horario == null){
+      JOptionPane.showMessageDialog(vista, "Error al cargar horario");
+    }else{
+      try {
+        horario.next();
+        String horaInicio = horario.getString("horaInicio");
+        String horaFin = horario.getString("horaFin");
+        String dias = horario.getString("dias");
+        vistaConsulta.txtDias.setText(dias);
+        vistaConsulta.txtHoraF.setText(horaFin);
+        vistaConsulta.txtHoraI.setText(horaInicio);
+      } catch (SQLException ex) {
+        Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      ResultSet horariosExp = horarioExc.getHorarios();
+      if (horariosExp == null){
+        JOptionPane.showMessageDialog(vistaConsulta, "Error al mostrar horarios ");
+      }
+      DefaultTableModel table = new DefaultTableModel();
+      vistaConsulta.horarioTable.setModel(table);
+      table.setColumnIdentifiers(new Object[]{"Hora de Inicio ","Hora de Cierre ", "Fecha", "Descripción"});
+      try {
+        while(horariosExp.next()){
+        table.addRow(new Object[]{horariosExp.getString("horaInicio"), horariosExp.getString("horaFin"), horariosExp.getDate("fecha"), horariosExp.getString("descripcion")});
+        }
+      res = true;  
+      } catch (SQLException ex) {
+        Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+     } 
+    }
+    return res;
+  }
+  
+  private void mostrarReservas() throws SQLException{
+    ResultSet reservas = reserva.getProxReservasSala(modelo.getIdentificador());
+  if (reservas == null){
+    JOptionPane.showMessageDialog(vistaConsulta, "La sala no tiene reserva para los proximos 7 dias ");
+  }
+  DefaultTableModel table = new DefaultTableModel();
+  vistaConsulta.reservasTable.setModel(table);
+  table.setColumnIdentifiers(new Object[]{"Numero Reserva ", "Estado", "Fecha", "Desde ", "Haste ", "Asunto", "Carnet del Organizador"});
+  try {
+    while(reservas.next()){
+      table.addRow(new Object[]{reservas.getInt("numero"), reservas.getString("estado"),reservas.getDate("fecha"), 
+          reservas.getString("horaInicio"), reservas.getString("horaFin"),reservas.getString("asunto"), reservas.getInt("organizador")});
+    }
+  } catch (SQLException ex) {
+    Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+  }
+}
 }

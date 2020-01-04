@@ -20,12 +20,12 @@ public class Reserva {
   private ArrayList<Participante> listaParticipantes;
   private String salaAsignada;
   public ArrayList<Incidente> listaIncidentes;
-
-  public Reserva(Date pFecha, String pHoraInicio, String pHoraFin, String pCodigoCalificacion, String pAsunto, int pOrganizador, String pSalaAsignada) {
+  
+  public Reserva(Date pFecha, String pHoraInicio, String pHoraFin, String pAsunto, int pOrganizador, String pSalaAsignada) {
     this.fecha = pFecha;
     this.horaInicio = pHoraInicio;
     this.horaFin = pHoraFin;
-    this.codigoCalificacion = pCodigoCalificacion;
+    this.codigoCalificacion = generarCodigoCalificacion( pSalaAsignada, numero, organizador);
     this.asunto = pAsunto;
     this.organizador = pOrganizador;
     this.salaAsignada = pSalaAsignada;
@@ -122,7 +122,15 @@ public class Reserva {
     this.listaIncidentes = pListaIncidentes;
   }
   
+  public String generarCodigoCalificacion(String pIdSala, int pIdReserva, int pCarnet){
+      String idReserva = Integer.toString(pIdReserva);
+      String carnet = Integer.toString(pCarnet);
+      return pIdSala +" - "+ idReserva + " - " + carnet; 
+  }
   
+  
+  
+
   @Override
   public String toString(){
     return "";

@@ -175,5 +175,17 @@ public class SalaDAO {
     }return res;
   }
   
+  public ResultSet getHorario(String pIdentificador){
+    ResultSet res = null;
+    try{
+      String identificador = pIdentificador;
+      Connection conexion = Conexion.getConexion();
+      Statement ejecutor = conexion.createStatement();
+      res = ejecutor.executeQuery("execute dbo.getRecursoNotSala '" + identificador +"'");
+    }catch(SQLException e){
+      System.out.println(e);
+    } return res;
+  }
+  
   
 }
