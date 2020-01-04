@@ -3,23 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/HorarioDAO.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/ConsultarEstudianteForm.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/controlador/ControladorSala.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/controlador/Gestor.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/controlador/ControladorReserva.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/ReservaDAO.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/SalaDAO.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/MenuForm.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/logicadenegocios/Horario.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/ConsultaSalaForm.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/MostrarSalaForm.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/controlador/ControladorEstudiante.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/logicadenegocios/Reserva.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/ParticipanteDAO.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/controlador/ControladorMenu.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/vista/MostrarRecursosDispForm.java</file>
-            <file>file:/C:/Users/Raquel%20Rojas/Desktop/Veranito1/src/dao/HorarioExcepcionDAO.java</file>
+            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/vista/AgregarEstudianteForm.java</file>
+            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/vista/ConsultarEstudianteForm.java</file>
+            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/vista/MostrarSalaForm.java</file>
+            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/controlador/ControladorEstudiante.java</file>
+            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/vista/ReservasEstudianteForm.java</file>
+            <file>file:/C:/Users/personal/Documents/GitHub/Veranito1/src/vista/LoginForm.java</file>
         </group>
     </open-files>
 </project-private>
