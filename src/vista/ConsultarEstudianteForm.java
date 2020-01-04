@@ -47,7 +47,7 @@ public class ConsultarEstudianteForm extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         txtCarnet = new javax.swing.JTextField();
         btnConsultar = new javax.swing.JButton();
-        btnVolver = new javax.swing.JButton();
+        btnVolverMenu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -83,8 +83,8 @@ public class ConsultarEstudianteForm extends javax.swing.JFrame {
         btnConsultar.setText("Consultar");
         getContentPane().add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
 
-        btnVolver.setText("Volver");
-        getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
+        btnVolverMenu.setText("Volver Menu");
+        getContentPane().add(btnVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Nombre");
@@ -125,7 +125,7 @@ public class ConsultarEstudianteForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnConsultar;
     public javax.swing.JButton btnReservas;
-    public javax.swing.JButton btnVolver;
+    public javax.swing.JButton btnVolverMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

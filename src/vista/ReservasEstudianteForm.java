@@ -58,7 +58,7 @@ public class ReservasEstudianteForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel1.setText("Reservas Estudiante");
 
-        btnVolver.setText("Volver");
+        btnVolver.setText("Cerrar Reservas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

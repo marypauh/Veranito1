@@ -43,6 +43,7 @@ public class ControladorEstudiante implements ActionListener {
     dao = new EstudianteDAO();
     vistaConsulta = pVistaConsulta;
     vistaReservas = pVistaReservas;
+    this.vistaConsulta.btnVolverMenu.addActionListener(this);
     this.vistaReservas.btnVolver.addActionListener(this);
     this.vistaConsulta.btnConsultar.addActionListener(this);
     this.vistaConsulta.btnReservas.addActionListener(this);
@@ -71,9 +72,11 @@ public class ControladorEstudiante implements ActionListener {
       case "Ver Reservas":
         setReservasEstudiante();
         break;
-      case "Cerrar":
+      case "Cerrar Reservas":
         this.vistaReservas.volverMenu();
         break;
+      case "Volver Menu":
+        this.vistaConsulta.volverMenu();
       default:
         break;
     }
@@ -91,8 +94,7 @@ public class ControladorEstudiante implements ActionListener {
             String carrera = vista.txtCarrera.getText();
             String email = vista.txtEmail.getText();
             String telefono = vista.txtTelefono.getText();
-            int calificacion = Integer.parseInt(vista.txtCalificacion.getText());
-            logicadenegocios = new Estudiante(carnet,nombreCompleto,carrera,email,calificacion,telefono);
+            logicadenegocios = new Estudiante(carnet,nombreCompleto,carrera,email,100,telefono);
             Estudiante estudianteActual = dao.agregarEstudiante(logicadenegocios);
             if (estudianteActual != null) {
                 vista.setVisible(false);

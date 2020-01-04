@@ -1,4 +1,3 @@
-
 package dao;
 
 import conexion.Conexion;
@@ -48,7 +47,7 @@ public class EstudianteDAO {
     cstmt.setString(2,pNombreCompleto);
     cstmt.setString(3,pCarrera);
     cstmt.setString(4,pEmail);
-    cstmt.setInt(5,pCalificacion);
+    cstmt.setInt(5,100);
     cstmt.setString(6,pTelefono);
     //se utiliza executeUpdate porque retorna un 1 si se inserto el objeto, 0 en caso contrario
     rs = cstmt.executeUpdate();
