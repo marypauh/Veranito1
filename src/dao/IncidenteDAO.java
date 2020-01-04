@@ -76,8 +76,8 @@ public class IncidenteDAO {
     conexion = Conexion.getConexion();
     cstmt = conexion.prepareCall("{call esquema.agregarIncidenteReserva(?,?)}");
     cstmt.setInt(1, pNumero);
-    cstmt.setInt(2, obtenerIdIncidente());
-    cstmt.executeQuery();
+    cstmt.setInt(2,obtenerIdIncidente());
+    cstmt.execute();
   }  
   
   public int obtenerIdIncidente() throws SQLException{
@@ -96,7 +96,7 @@ public class IncidenteDAO {
   public void bajarCalificacionEstudiante(int pOrganizador, int valor) throws SQLException{
     CallableStatement cstmt = null;
     conexion = Conexion.getConexion();
-    cstmt = conexion.prepareCall("{call esquema.bajarCalificacionEstudiante(?)}");
+    cstmt = conexion.prepareCall("{call esquema.bajarCalificacionEstudiante(?,?)}");
     cstmt.setInt(1,pOrganizador);
     cstmt.setInt(2,valor);
     cstmt.executeUpdate();
