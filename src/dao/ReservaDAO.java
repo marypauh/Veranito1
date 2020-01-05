@@ -108,6 +108,12 @@ public class ReservaDAO {
   }
   
  
+   /**
+   * Metodo para verificar el código para calificar una sala y obtener el idSala de la reserva, si existiese. 
+   * 
+   * @param pCodigo código a validar
+   * @return ResultSet con el idSala de la reserva a la que corresponde el codigo
+   */ 
    public ResultSet verificarCodigo(String pCodigo) throws SQLException{
     ResultSet res = null;
     Connection conexion = Conexion.getConexion();
@@ -116,6 +122,13 @@ public class ReservaDAO {
     return res;
   }
   
+   
+     /**
+   * Metodo para utilizar el código al calificar la sala
+   * 
+   * @param pReserva el número de reserva en donde se utilizará el código
+   * @return True si se logra con éxito, False en caso contrario
+   */ 
   public boolean usarCodigo(int pReserva){
     boolean res = false;
     try{
@@ -131,6 +144,12 @@ public class ReservaDAO {
   }
 
   
+   /**
+   * Metodo para
+   * 
+   * @param 
+   * @return 
+   */ 
   public void notificarParticipantes(int pNumero,String pIdSala) throws SQLException{
     ResultSet rs = null;
     String msg = "Ha sido cancelada la reserva de la sala: "+pIdSala;

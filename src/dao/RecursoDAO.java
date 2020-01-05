@@ -16,6 +16,12 @@ import java.sql.Statement;
  * @author María Paula
  */
 public class RecursoDAO {
+  
+  
+    /**
+   * Metodo que retorna todos los recursos disponibles
+   * @return ResultSet, con todos los recusos disponibles  
+   */  
   public ResultSet getRecursos(){
     ResultSet rs = null;
     try{
@@ -28,6 +34,13 @@ public class RecursoDAO {
     return rs;
   }
   
+  
+   /**
+   * Metodo para obtener los datos de un recurso por su nombre
+   * 
+   * @param pNombre nombre del recurso a consultar
+   * @return ResultSet con los datos del recurso 
+   */ 
   public ResultSet getRecursoID(String pNombre){
     ResultSet rs = null;
     try{

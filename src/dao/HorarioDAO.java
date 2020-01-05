@@ -19,6 +19,11 @@ import logicadenegocios.Horario;
  */
 public class HorarioDAO {
 
+    
+  /**
+   * Metodo que retorna todos los horarios disponibles
+   * @return ResultSet, con todos los horarios disponibles  
+   */  
   public ResultSet getHorarios(){
     ResultSet rs = null;
     try{
@@ -31,6 +36,14 @@ public class HorarioDAO {
     return rs;
   }
   
+  
+  
+    /**
+   * Metodo para obtener un horario por su id 
+   * 
+   * @param pId id del horario 
+   * @return ResultSet con el horario que corresponde
+   */  
   public ResultSet getHorarioID(int pId){
     ResultSet rs = null;
     try{
@@ -44,6 +57,12 @@ public class HorarioDAO {
   }
   
   
+    /**
+   * Metodo para obtener el horario de una sala en particular
+   * 
+   * @param pIdSala id de la sala particualr
+   * @return ResultSet con el horario que corresponde a la sala
+   */  
   public ResultSet getHorarioSala(String pIdSala){
     ResultSet res = null;
     try{

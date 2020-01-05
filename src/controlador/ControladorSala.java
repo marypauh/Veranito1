@@ -151,6 +151,7 @@ public class ControladorSala implements ActionListener{
     }
   }
   
+  
     /**
    * Metodo para registrar una sala
    */
@@ -186,8 +187,12 @@ public void getInfoSala() throws SQLException{
     }
   }else {
     JOptionPane.showMessageDialog(null, "Error al ingresar los datos, compruebe los datos ingresados");}
-  } 
+  }
 
+
+  /**
+   * Metodo para agregar el horario de una Sala y mostrar los recursos disponibles
+   */  
 public void setHorarioSala(){
   int idHorario = vistaHorario.horariosTable.getSelectedRow() + 1;
   ResultSet rs = horario.getHorarioID(idHorario);
@@ -222,6 +227,9 @@ public void setHorarioSala(){
 }
 
 
+  /**
+   * Metodo par agregar recursos a una sala
+   */  
 public void setRecursosSala(){
   int row = vistaRecurso.recursosTable.getSelectedRow();
   String nombre = vistaRecurso.recursosTable.getValueAt(row, 0).toString();
@@ -235,6 +243,10 @@ public void setRecursosSala(){
   }
 }
 
+
+  /**
+   * Metodo que registra la nueva sala en la base de datos
+   */  
 public void registrarSala(){
   boolean bandera = dao.registrarSala(modelo);
   if(bandera == true){
@@ -246,6 +258,9 @@ public void registrarSala(){
 }
 
 
+  /**
+   * Metodo para modificar la sala
+   */  
 public void getModificar(){
   try {
     String id = vistaModSala.txtID.getText();
@@ -284,6 +299,9 @@ public void getModificar(){
 }
 
 
+  /**
+   * Metodo para agregar un nuevo recurso a una sala existente
+   */  
   public void nuevoRecurso(){
     ResultSet recursos = dao.recursosNotSala(modelo.getIdentificador());
     vistaRecursosDisp.setVisible(true);
@@ -305,6 +323,9 @@ public void getModificar(){
 }
 
 
+  /**
+   * Metodo para eliminar un recurso
+   */  
 public void eliminarRecurso(){
   int row = vistaMostrarSala.recursosSalaTable.getSelectedRow();
   String nombre = vistaMostrarSala.recursosSalaTable.getValueAt(row, 0).toString();
@@ -317,6 +338,10 @@ public void eliminarRecurso(){
   }
 }
 
+
+  /**
+   * Metodo para guardar los cambios de la sala en la base de datos
+   */  
   public void guardarCambios(){
     modelo.setEstado(vistaMostrarSala.estadoCB.getSelectedItem().toString());
     modelo.setUbicacion(vistaMostrarSala.txtUbicacion.getText());
@@ -327,6 +352,9 @@ public void eliminarRecurso(){
     } vistaMostrarSala.setVisible(false);
   }
 
+  /**
+   * Metodo para actualizar la tabla de recursos en la vista de modificar sala
+   */  
 private void updateTabla(ResultSet recursos){
   if (recursos == null){
     JOptionPane.showMessageDialog(vistaMostrarSala, "No existen recursos ");
@@ -344,6 +372,9 @@ private void updateTabla(ResultSet recursos){
 }
 
 
+  /**
+   * Metodo para agregar recursos en la nueva sala
+   */  
 public void agregarRecurso(){
   int row = vistaRecursosDisp.recursosNuevos.getSelectedRow();
   String nombre = vistaRecursosDisp.recursosNuevos.getValueAt(row, 0).toString();
@@ -358,6 +389,9 @@ public void agregarRecurso(){
  }
 
 
+  /**
+   * Metodo para consultar los datos de una sala
+   */  
 public void consultarSala(){
   try {
     String id = vistaConsulta.txtID.getText();
@@ -409,7 +443,11 @@ public void consultarSala(){
     Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
   }
 }
-
+  /**
+   * Metodo para mostrar los horarios disponibles para una nueva sala
+   * 
+   * @return si se muestran con exitos true y si no, false
+   */  
   public boolean mostrarHorario(){
     boolean res = false;
     ResultSet horario = this.horario.getHorarioSala(modelo.getIdentificador());
@@ -446,6 +484,10 @@ public void consultarSala(){
     return res;
   }
   
+  
+    /**
+   * Metodo para mostrar las próximas reservas al consultar Sala
+   */  
   private void mostrarReservas() throws SQLException{
     ResultSet reservas = reserva.getProxReservasSala(modelo.getIdentificador());
   if (reservas == null){
@@ -465,7 +507,9 @@ public void consultarSala(){
 }
   
 
-
+  /**
+   * Metodo para validar el código antes de calificar una Sala
+   */  
   private void validarCodigo () throws SQLException {
     String codigo = vistaCali.txtCodigo.getText();
     ResultSet sala = reserva.verificarCodigo(codigo);
@@ -491,6 +535,10 @@ public void consultarSala(){
     }
   }
   
+  
+    /**
+   * Metodo para calificar una sala
+   */  
   private void calificarSala () throws SQLException {
     if (vistaCali2.validarDatos() == false){
       JOptionPane.showMessageDialog(vistaCali2, "Nota no es valida");

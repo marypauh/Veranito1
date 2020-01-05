@@ -122,6 +122,15 @@ public class Reserva {
     this.listaIncidentes = pListaIncidentes;
   }
   
+  
+  /**
+   * Método para generar el código para calificar una sala
+   * 
+   * @param pIdSala id de la sala 
+   * @param pIdReserva numero de la reserva 
+   * @param pCarnet carnet del estudiante organizador 
+   * @return String, el código de calificación
+   */
   public String generarCodigoCalificacion(String pIdSala, int pIdReserva, int pCarnet){
       String idReserva = Integer.toString(pIdReserva);
       String carnet = Integer.toString(pCarnet);

@@ -18,6 +18,11 @@ import java.util.Date;
  */
 public class HorarioExcepcionDAO {
     
+    
+    /**
+   * Metodo que retorna todos los horarios de excepción 
+   * @return ResultSet, con todos los horarios   
+   */  
     public ResultSet getHorarios(){
     ResultSet rs = null;
     try{
