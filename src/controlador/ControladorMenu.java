@@ -1,4 +1,5 @@
 package controlador;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import logicadenegocios.Estudiante;
@@ -85,18 +86,24 @@ public class ControladorMenu implements ActionListener {
         break;
     }
   }
+  
+  
     /**
    * Metodo que abre la ventana para agregar sala
    */
   private void agregarSala(){
-      RegistrarSalaForm r = new RegistrarSalaForm();
-      SeleccionarHorarioForm h = new SeleccionarHorarioForm();
-      AgregarRecursosSalaForm recurso = new AgregarRecursosSalaForm();
-      Sala sala = new Sala();
-      ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
-      controlador.vista.setVisible(true);
+    RegistrarSalaForm r = new RegistrarSalaForm();
+    SeleccionarHorarioForm h = new SeleccionarHorarioForm();
+    AgregarRecursosSalaForm recurso = new AgregarRecursosSalaForm();
+    Sala sala = new Sala();
+    ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
+    controlador.vista.setVisible(true);
   }
   
+  
+  /**
+   * Metodo que abre la ventana de modificar sala
+   */
   private void modificarSala(){
     RegistrarSalaForm r = new RegistrarSalaForm();
     SeleccionarHorarioForm h = new SeleccionarHorarioForm();
@@ -106,6 +113,10 @@ public class ControladorMenu implements ActionListener {
     controlador.vistaModSala.setVisible(true);
   }
   
+  
+  /**
+   * Metodo que abre la ventana para reservar sala
+   */
   private void reservarSala(){
     ReservarSalaForm vistaAgregarReservas = new ReservarSalaForm();
     Reserva reserva = new Reserva();
@@ -113,6 +124,10 @@ public class ControladorMenu implements ActionListener {
     controladorReserva.vista.setVisible(true);
   }
   
+  
+  /**
+   * Metodo que abre la ventana para registrar el incidente
+   */
   private void registrarIncidente(){
      RegistrarIncidenteReservaForm vistaRegistrarIncidentes = new RegistrarIncidenteReservaForm();
       Incidente incidente = new Incidente();
@@ -120,6 +135,10 @@ public class ControladorMenu implements ActionListener {
       controladorIncidente.vista.setVisible(true);
   }
   
+  
+  /**
+   * Metodo que abre la ventana para consultar la sala
+   */
   private void consultarSala(){
     RegistrarSalaForm r = new RegistrarSalaForm();
     SeleccionarHorarioForm h = new SeleccionarHorarioForm();
@@ -129,6 +148,10 @@ public class ControladorMenu implements ActionListener {
     controlador.vistaConsulta.setVisible(true);
   }
   
+  
+  /**
+   * Metodo que abre la ventana para cancelar la reserva
+   */
   private void cancelarReserva(){
     CancelarReservaForm vistaCancelarReserva = new CancelarReservaForm();
     Reserva reserva = new Reserva();
@@ -137,6 +160,9 @@ public class ControladorMenu implements ActionListener {
   }
   
   
+  /**
+   * Metodo que abre la ventana para calificar la sala
+   */
   private void calificar(){
     RegistrarSalaForm r = new RegistrarSalaForm();
     SeleccionarHorarioForm h = new SeleccionarHorarioForm();
@@ -147,7 +173,7 @@ public class ControladorMenu implements ActionListener {
   }
   
   
-  /**
+ /**
  * Metodo para abrir ventana registrar estudiante
  */
 private void agregarEstudiante(){

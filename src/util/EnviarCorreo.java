@@ -1,6 +1,15 @@
 package util;
 
-import java.util.Properties; import javax.mail.Session; import javax.mail.Message; import javax.mail.Transport; import javax.mail.Authenticator; import javax.mail.MessagingException; import javax.mail.internet.InternetAddress;import javax.mail.PasswordAuthentication;import javax.mail.internet.MimeMessage; import javax.swing.JOptionPane;
+import java.util.Properties; 
+import javax.mail.Session; 
+import javax.mail.Message; 
+import javax.mail.Transport; 
+import javax.mail.Authenticator; 
+import javax.mail.MessagingException; 
+import javax.mail.internet.InternetAddress;
+import javax.mail.PasswordAuthentication;
+import javax.mail.internet.MimeMessage; 
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -8,6 +17,12 @@ import java.util.Properties; import javax.mail.Session; import javax.mail.Messag
  */
 public class EnviarCorreo {
   
+  /**
+   * Metodo para enviar correo
+   * @param to
+   * @param sub
+   * @param msg 
+   */
   public static void enviarCorreo(String to, String sub,String msg) {
     final String user = "rentacarkpr@gmail.com";
     final String pass = "prograbases1";

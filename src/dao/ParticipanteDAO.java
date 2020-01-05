@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import conexion.Conexion;
@@ -21,6 +17,14 @@ import util.EnviarCorreo;
 public class ParticipanteDAO {
   public static Connection conexion; 
   
+  /**
+   * Metodo para agregar participantes a la reserva
+   * @param PlistaParticipantes
+   * @param idReserva
+   * @param pCapacidadMax
+   * @return
+   * @throws SQLException 
+   */
   public int agregarParticipantes(ArrayList<Participante> PlistaParticipantes,int idReserva,int pCapacidadMax) throws SQLException{
     CallableStatement cstmt = null;
     int rs = 0;
@@ -41,6 +45,15 @@ public class ParticipanteDAO {
     }
   }
   
+  
+  /**
+   * Metodo para enviar correo a los participantes de la reserva
+   * @param pListaParticipantes
+   * @param pIdSala
+   * @param pHoraInicio
+   * @param pHoraFin
+   * @param pFecha 
+   */
   public void enviarCorreoParticipantes(ArrayList<Participante> pListaParticipantes,String pIdSala, String pHoraInicio, String pHoraFin,Date pFecha){
     int contador = 0;
     String msg = "Identificador de la sala: " + pIdSala + "\nFecha: " +pFecha.toString()+"\nHora de inicio: "+pHoraInicio+"\nHora de finalización: "+pHoraFin;

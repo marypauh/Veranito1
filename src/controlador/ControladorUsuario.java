@@ -1,4 +1,5 @@
 package controlador;
+
 import vista.LoginForm; 
 import dao.UsuarioDAO; 
 import java.awt.event.ActionEvent; 
@@ -13,7 +14,7 @@ import vista.MenuForm;
 
 /**
  *
- * @author Maria Paula Rodriguez y Kevin Castillo
+ * @author Maria Paula Rodriguez 
  */
 public class ControladorUsuario implements ActionListener {
     

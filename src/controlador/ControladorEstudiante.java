@@ -1,4 +1,5 @@
 package controlador;
+
 import conexion.Conexion;
 import vista.AgregarEstudianteForm; 
 import dao.EstudianteDAO; 
@@ -19,6 +20,7 @@ import logicadenegocios.Reserva;
 import vista.ConsultarEstudianteForm;
 import vista.IncidentesReservaForm;
 import vista.ReservasEstudianteForm;
+
 
 /**
  *
@@ -56,6 +58,7 @@ public class ControladorEstudiante implements ActionListener {
     this.vista.btnMenu.addActionListener(this);
   }
 
+  
    /**
    * Metodo que recibe y ejecuta una accion
    * @param e 
@@ -94,6 +97,7 @@ public class ControladorEstudiante implements ActionListener {
     }
   }
   
+  
   /**
    * Metodo para agregar estudiante a la base de datos
    * @throws SQLException 
@@ -122,6 +126,10 @@ public class ControladorEstudiante implements ActionListener {
     }
   }
   
+  /**
+   * 
+   * Método que ejecuta el procedimiento almacenado que consulta el estudiante
+   */
   public void getInfoEstudiante(){
    try{
      int carnetEE = Integer.parseInt(vistaConsulta.txtCarnet.getText()); 
@@ -147,6 +155,9 @@ public class ControladorEstudiante implements ActionListener {
   }
   
   
+  /**
+   * Crea y llena la tabla con las reservas del estudiante consultado
+   */
   public void setReservasEstudiante(){
     int carnetE = Integer.parseInt(vistaConsulta.txtCarnet.getText());
     ResultSet reservas = dao.getReservasEstudiante(carnetE);
@@ -168,6 +179,9 @@ public class ControladorEstudiante implements ActionListener {
   }
 
   
+  /**
+   * Crea y llena la tabla de incidentes segun la reserva deseada
+   */
   public void getIncidentesReserva(){ 
     int idReserva = (int) vistaReservas.reservasTable.getValueAt(vistaReservas.reservasTable.getSelectedRow(),0);
     ResultSet incidentes = dao.getIncidentesReserva(idReserva);   

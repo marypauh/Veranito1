@@ -16,7 +16,7 @@ public class UsuarioDAO {
   /**
    * Metodo donde se comprueba el usuario
    * @param usuario
-   * @return
+   * @return usuario
    * @throws SQLException 
    */
   public Usuario iniciarSesion(Usuario usuario) throws SQLException{
@@ -32,7 +32,7 @@ public class UsuarioDAO {
    * Metodo donde se comprueba la contraseña
    * @param pUsuario
    * @param pContraseña
-   * @return
+   * @return 1 si funciona, 0 si no
    * @throws SQLException 
    */
   public int comprobarContraseña(String pUsuario, String pContraseña) throws SQLException{

@@ -11,7 +11,7 @@ public class LoginForm extends javax.swing.JFrame {
    * Constructor
    */
   public LoginForm() {    
-      initComponents();        
+    initComponents();    
   }
   
   

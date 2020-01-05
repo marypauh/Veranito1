@@ -41,12 +41,28 @@ public class IncidenteDAO {
     }
   }
   
+  
+  /**
+   * Metodo para enviar correo al estudiante organizador de la reserva
+   * @param pIdSala
+   * @param pFecha
+   * @param pAsunto
+   * @param pOrganizador
+   * @throws SQLException 
+   */
   public void enviarCorreoOrganizador(String pIdSala, Date pFecha, String pAsunto, int pOrganizador) throws SQLException{
     String msg = "Identificador de la sala: " + pIdSala + "\nFecha: " +pFecha.toString()+"\nDetalle del incidente: "+pAsunto;
     String email = obtenerCorreoEstudiante(pOrganizador);
     EnviarCorreo.enviarCorreo(email,"BiblioTEC - Notificacion de incidente",msg);
   }
   
+  
+  /**
+   * Metodo que obtiene el correo del estudiante para enviar el correo
+   * @param pOrganizador
+   * @return
+   * @throws SQLException 
+   */
   public String obtenerCorreoEstudiante(int pOrganizador) throws SQLException{
     String correo = "";
     CallableStatement cstmt = null;
@@ -61,6 +77,12 @@ public class IncidenteDAO {
     return correo;
   }
   
+  
+  /**
+   * Metodo para agregar el incidente a su respectiva reserva
+   * @param pNumero
+   * @throws SQLException 
+   */
   public void agregarIncidenteReserva(int pNumero) throws SQLException{
     ResultSet rs = null;
     int idIncidente =0;
@@ -72,6 +94,12 @@ public class IncidenteDAO {
     cstmt.execute();
   }  
   
+  
+  /**
+   * Metodo para obtener el id del incidente
+   * @return
+   * @throws SQLException 
+   */
   public int obtenerIdIncidente() throws SQLException{
     ResultSet rs = null;
     int idIncidente =0;
@@ -85,6 +113,13 @@ public class IncidenteDAO {
     return idIncidente;
   }
   
+  
+  /**
+   * Metodo para bajar la calificacion del estudiante con respecto a la reserva
+   * @param pOrganizador
+   * @param valor
+   * @throws SQLException 
+   */
   public void bajarCalificacionEstudiante(int pOrganizador, int valor) throws SQLException{
     CallableStatement cstmt = null;
     conexion = Conexion.getConexion();

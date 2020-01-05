@@ -27,6 +27,12 @@ public class ReservaDAO {
   public static Connection conexion; 
   
   
+  /**
+   * Metodo para agregar reserva
+   * @param reserva
+   * @return reserva
+   * @throws SQLException 
+   */
   public Reserva agregarReserva(Reserva reserva) throws SQLException{
     if(storeProcedureAgregarReserva(reserva.getEstado(),reserva.getFecha(),reserva.getHoraInicio(), reserva.getHoraFin(),reserva.getCodigoCalificacion(),reserva.getAsunto(),reserva.getOrganizador(),reserva.getSalaAsignada())>0){
       return reserva;    
@@ -37,6 +43,11 @@ public class ReservaDAO {
   }
   
   
+  /**
+   * Metodo para la consulta de la sala
+   * @return salas
+   * @throws SQLException 
+   */
   public ResultSet consultarSalas() throws SQLException{
     ResultSet rs = null;
     conexion = Conexion.getConexion();
@@ -45,6 +56,20 @@ public class ReservaDAO {
     return rs;
   }
   
+  
+  /**
+   * Metodo que ejecuta el procedimiento almacenado para agregar la reserva
+   * @param pEstado
+   * @param pFecha
+   * @param pHoraInicio
+   * @param pHoraFin
+   * @param pCodigoCalificacion
+   * @param pAsunto
+   * @param pOrganizador
+   * @param pIdSala
+   * @return 1 si se inserto correctamente, 0 si no
+   * @throws SQLException 
+   */
   public int storeProcedureAgregarReserva(String pEstado ,Date pFecha,String pHoraInicio,
     String pHoraFin,String pCodigoCalificacion,String pAsunto,int pOrganizador,String pIdSala) throws SQLException{
     CallableStatement cstmt = null;
@@ -65,6 +90,12 @@ public class ReservaDAO {
     return rs;
   }
   
+  
+  /**
+   * Metodo para obtener el identificador de la reserva
+   * @return idReserva
+   * @throws SQLException 
+   */
   public int obtenerIdReserva() throws SQLException{
     ResultSet rs = null;
     int idReserva =0;
@@ -79,6 +110,12 @@ public class ReservaDAO {
   }
   
   
+  /**
+   * Metodo para obtener las proximas reservas
+   * @param pIdentificador
+   * @return reservas
+   * @throws SQLException 
+   */
   public ResultSet getProxReservasSala(String pIdentificador) throws SQLException{
     ResultSet res = null;
     String identificador = pIdentificador;
@@ -88,6 +125,12 @@ public class ReservaDAO {
     return res;
   }
   
+  
+  /**
+   * Metodo para consultar las reservas
+   * @return reservas
+   * @throws SQLException 
+   */
   public ResultSet consultarReservas() throws SQLException{
     ResultSet rs = null;
     conexion = Conexion.getConexion();
@@ -96,6 +139,13 @@ public class ReservaDAO {
     return rs;
   }
   
+  
+  /**
+   * Metodo para cancelar una reserva
+   * @param pNumero
+   * @return
+   * @throws SQLException 
+   */
   public int cancelarReserva(int pNumero) throws SQLException{
     int rs = 0;
     CallableStatement cstmt = null;        
@@ -145,7 +195,7 @@ public class ReservaDAO {
 
   
    /**
-   * Metodo para
+   * Metodo que ejecuta el procedimiento para obtener el correo de los participantes
    * 
    * @param 
    * @return 
@@ -164,6 +214,13 @@ public class ReservaDAO {
     }
   }
   
+  
+  /**
+   * Metodo que obtiene el correo del organizador
+   * @param pOrganizador
+   * @param pIdSala
+   * @throws SQLException 
+   */
   public void notificarOrganizador(int pOrganizador,String pIdSala) throws SQLException{
     ResultSet rs = null;
     String msg = "Ha sido cancelada la reserva de la sala: "+pIdSala;

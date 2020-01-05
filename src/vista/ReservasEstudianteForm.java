@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
 import java.sql.ResultSet;
@@ -14,14 +10,18 @@ import java.sql.ResultSet;
 public class ReservasEstudianteForm extends javax.swing.JFrame {
     ResultSet reservas;
 
-    /**
-     * Creates new form ReservasEstudianteForm
-     */
-    public ReservasEstudianteForm() {
-        initComponents();
-    }
+/**
+* Creates new form ReservasEstudianteForm
+*/
+  public ReservasEstudianteForm() {
+    initComponents();
+  }
     
-     public void volverMenu(){
+  
+/**
+ * Metodo para regresar al menu
+ */ 
+  public void volverMenu(){
     this.setVisible(false);
   }
 

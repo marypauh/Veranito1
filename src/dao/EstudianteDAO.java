@@ -20,7 +20,7 @@ public class EstudianteDAO {
   /**
    * Metodo donde se llama el procedimiento para agregar el estudiante
    * @param estudiante
-   * @return
+   * @return estudiante
    * @throws SQLException 
    */
   public Estudiante agregarEstudiante(Estudiante estudiante) throws SQLException{
@@ -34,7 +34,17 @@ public class EstudianteDAO {
   }
   
   
-
+/**
+ * Metodo que ejecuta el procedimiento almacenado de agregar estudiante
+ * @param pCarnet
+ * @param pNombreCompleto
+ * @param pCarrera
+ * @param pEmail
+ * @param pCalificacion
+ * @param pTelefono
+ * @return 1 si se inserto el estudiante y 0 si no se inserto
+ * @throws SQLException 
+ */
   public int storeProcedureAgregarEstudiante(int pCarnet,String pNombreCompleto,String pCarrera,
     String pEmail, int pCalificacion ,String pTelefono) throws SQLException{
       
@@ -54,7 +64,13 @@ public class EstudianteDAO {
     System.out.println(rs);
     return rs;
   }
+ 
   
+  /**
+   * Metodo que ejecuta el procedimiento de consultar estudiante
+   * @param pCarnet
+   * @return el estudiante
+   */
   public ResultSet storeProcedureConsultarEstudiante(int pCarnet){
     ResultSet rs = null;
     try{
@@ -67,6 +83,12 @@ public class EstudianteDAO {
     return rs;
   }
   
+  
+  /**
+   * Metodo para obtener las reservas de un estudiante
+   * @param pCarnet
+   * @return las reservas
+   */
   public ResultSet getReservasEstudiante(int pCarnet){
     ResultSet rs = null;
     try{
@@ -79,7 +101,12 @@ public class EstudianteDAO {
     return rs;
   }
   
-  
+
+/**
+ * Metodo que obtiene los incidentes segun la reserva
+ * @param pIdReserva
+ * @return los incidentes
+ */  
   public ResultSet getIncidentesReserva(int pIdReserva){
     ResultSet rs = null;
     try{
