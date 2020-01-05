@@ -105,4 +105,28 @@ public class ReservaDAO {
     rs = cstmt.executeUpdate();
     return rs;
   }
+  
+ 
+   public ResultSet verificarCodigo(String pCodigo) throws SQLException{
+    ResultSet res = null;
+    Connection conexion = Conexion.getConexion();
+    Statement ejecutor = conexion.createStatement();
+    res = ejecutor.executeQuery("execute esquema.codigoUsado '" + pCodigo +"'");
+    return res;
+  }
+  
+  public boolean usarCodigo(int pReserva){
+    boolean res = false;
+    try{
+      Connection conexion = Conexion.getConexion();
+      String query = "Execute esquema.usarCodigo @idReserva = ?";
+      CallableStatement consulta = conexion.prepareCall(query);
+      consulta.setInt(1,pReserva);
+      consulta.execute();
+      res = true;
+    }catch(SQLException e){
+      System.out.println(e);
+    }return res;
+  }
+
 }  

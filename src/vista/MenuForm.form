@@ -35,18 +35,25 @@
                           <Component id="btnReservarSala" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAgregarEstudiante" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAgregarSala" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnConsultarE" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnCancelarReserva" min="-2" max="-2" attributes="0"/>
                           <Component id="btnConsultarSala" min="-2" max="-2" attributes="0"/>
                           <Component id="btnRegistrarIncidente" min="-2" max="-2" attributes="0"/>
                           <Component id="btnModificarSala" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Component id="btnCalificar" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="btnConsultarE" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                      <Component id="btnCancelarReserva" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <EmptySpace pref="92" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -68,12 +75,14 @@
                   <Component id="btnAgregarSala" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnConsultarSala" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnConsultarE" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancelarReserva" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnCalificar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="66" max="32767" attributes="0"/>
               <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -151,6 +160,14 @@
     <Component class="javax.swing.JButton" name="btnCancelarReserva">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar Reserva"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCalificar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Calificar Sala"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

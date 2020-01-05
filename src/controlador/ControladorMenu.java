@@ -29,7 +29,6 @@ public class ControladorMenu implements ActionListener {
   ConsultarEstudianteForm vistaConsulta = new ConsultarEstudianteForm();
   ReservasEstudianteForm vistaReservas = new ReservasEstudianteForm();
   ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios,vistaConsulta,vistaReservas);
-
   /**
    * Constructor
    * @param pVista
@@ -45,6 +44,7 @@ public class ControladorMenu implements ActionListener {
     this.vista.btnRegistrarIncidente.addActionListener(this);
     this.vista.btnConsultarSala.addActionListener(this);
     this.vista.btnCancelarReserva.addActionListener(this);
+    this.vista.btnCalificar.addActionListener(this);
   }
   
   
@@ -74,6 +74,9 @@ public class ControladorMenu implements ActionListener {
         break;
       case "Consultar Sala":
         consultarSala();
+        break;
+      case "Calificar Sala":
+        calificar();
         break;
       case "Cancelar Reserva":
         cancelarReserva();
@@ -133,6 +136,16 @@ public class ControladorMenu implements ActionListener {
     Reserva reserva = new Reserva();
     ControladorReserva controladorReserva = new ControladorReserva(vistaCancelarReserva, reserva);
     controladorReserva.vistaCancelar.setVisible(true);
+  }
+  
+  
+  private void calificar(){
+    RegistrarSalaForm r = new RegistrarSalaForm();
+    SeleccionarHorarioForm h = new SeleccionarHorarioForm();
+    AgregarRecursosSalaForm recurso = new AgregarRecursosSalaForm();
+    Sala sala = new Sala();
+    ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
+    controlador.vistaCali.setVisible(true);
   }
   
 }
