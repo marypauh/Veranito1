@@ -87,7 +87,13 @@ public class ControladorSala implements ActionListener{
   public void actionPerformed(ActionEvent e){
     switch(e.getActionCommand()){
       case "Continuar":
-        getInfoSala();
+    {
+        try {
+            getInfoSala();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
         break;
       case "Regresar":
         this.vista.setVisible(false);
@@ -100,11 +106,11 @@ public class ControladorSala implements ActionListener{
         break;
       case "Listo":
         registrarSala();
-      case "Buscar":
-        getIDMod();
-        break;
       case "Agregar Nuevo Recurso":
         nuevoRecurso();
+        break;
+      case "Buscar Sala":
+        getModificar();
         break;
       case "Eliminar Recurso":
         eliminarRecurso();
@@ -148,13 +154,14 @@ public class ControladorSala implements ActionListener{
     /**
    * Metodo para registrar una sala
    */
-public void getInfoSala(){
+public void getInfoSala() throws SQLException{
   if(vista.datosCorrectos() == true){
     int capacidad = Integer.parseInt(vista.txtCapacidad.getText());
     String ubicacion = vista.txtUbicacion.getText();
     String identificador = vista.txtId.getText();
     System.out.print(dao.getSala(identificador));
-    if( dao.getSala(identificador) != null){
+    ResultSet r = dao.getSala(identificador);
+    if(r.next()){
       JOptionPane.showMessageDialog(vista, "Ya existe la sala " + identificador);
     }else{
       modelo = new Sala(identificador, ubicacion, capacidad);
@@ -232,17 +239,18 @@ public void registrarSala(){
   boolean bandera = dao.registrarSala(modelo);
   if(bandera == true){
     JOptionPane.showMessageDialog(vista, "Sala ingresada correctamente");
+    this.vistaRecurso.setVisible(false);
     }else{
       JOptionPane.showMessageDialog(vista, "Error al ingresar la sala");
     }
 }
 
 
-public void getIDMod(){
+public void getModificar(){
   try {
     String id = vistaModSala.txtID.getText();
     ResultSet rs = dao.getSala(id);
-    System.out.println(rs.next());
+    if(rs.next()){
     if ( "".equals(id) || rs == null ){
       JOptionPane.showMessageDialog(vista, "No existe una sala con ese identificador");
     }else{
@@ -264,7 +272,10 @@ public void getIDMod(){
         }catch(SQLException ex) {
           Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }   
+    }  
+    }else{
+      JOptionPane.showMessageDialog(vista, "No existe sala con ese ID. Intente de nuevo.");
+    }
   } catch (SQLException ex) {
     Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
   }
@@ -350,7 +361,7 @@ public void consultarSala(){
     String id = vistaConsulta.txtID.getText();
     ResultSet rs = dao.getSala(id);
     modelo.setIdentificador(id);
-    rs.next();
+    if (rs.next()){
     if ( "".equals(id) || rs == null ){
       JOptionPane.showMessageDialog(vista, "No existe una sala con ese identificador");
     }else{
@@ -388,6 +399,9 @@ public void consultarSala(){
         }catch(SQLException ex) {
           Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    }else{
+      JOptionPane.showMessageDialog(vistaConsulta, "No existe Sala con ese ID");
     }   
   } catch (SQLException ex) {
     Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);

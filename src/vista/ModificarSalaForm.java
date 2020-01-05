@@ -43,7 +43,7 @@ public class ModificarSalaForm extends javax.swing.JFrame {
 
         btnMenu.setText("Menu");
 
-        btnBuscar.setText("Buscar");
+        btnBuscar.setText("Buscar Sala");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
