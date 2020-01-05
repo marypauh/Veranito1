@@ -20,6 +20,8 @@ import logicadenegocios.Sala;
 import vista.RegistrarSalaForm;
 import vista.SeleccionarHorarioForm;
 import vista.AgregarRecursosSalaForm;
+import vista.CalificarSala1Form;
+import vista.CalificarSala2Form;
 import vista.ConsultaSalaForm;
 import vista.ModificarSalaForm;
 import vista.MostrarSalaForm;
@@ -43,6 +45,8 @@ public class ControladorSala implements ActionListener{
   public ModificarSalaForm vistaModSala = new ModificarSalaForm();
   public MostrarRecursosDispForm vistaRecursosDisp = new MostrarRecursosDispForm();
   public ConsultaSalaForm vistaConsulta = new ConsultaSalaForm();
+  public CalificarSala1Form vistaCali = new CalificarSala1Form();
+  public CalificarSala2Form vistaCali2 = new CalificarSala2Form();
           
   public ControladorSala(RegistrarSalaForm pVista , Sala pModelo,SeleccionarHorarioForm pVistaH,AgregarRecursosSalaForm pVistaR  ){
     vista = pVista;
@@ -69,6 +73,10 @@ public class ControladorSala implements ActionListener{
     this.vistaRecursosDisp.btnAgregarNuevoR.addActionListener(this);
     this.vistaConsulta.btnBuscar.addActionListener(this);
     this.vistaConsulta.btnCerrar.addActionListener(this);
+    this.vistaCali.btnCalificar.addActionListener(this);
+    this.vistaCali2.btnCalificarSala.addActionListener(this);
+    this.vistaCali.btnMenu.addActionListener(this);
+
   }
   
     /**
@@ -109,6 +117,24 @@ public class ControladorSala implements ActionListener{
         break;
       case "Consultar":
         consultarSala();
+        break;
+      case "Calificar":
+    {
+        try {
+            validarCodigo();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        break;
+      case "Calificar Sala":
+    {
+        try {
+            calificarSala();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
         break;
       case "Cerrar":
         vistaRecursosDisp.setVisible(false);
@@ -421,4 +447,45 @@ public void consultarSala(){
     Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
   }
 }
+  
+  
+  private void validarCodigo () throws SQLException {
+    String codigo = vistaCali.txtCodigo.getText();
+    ResultSet sala = reserva.verificarCodigo(codigo);
+    System.out.print(sala);
+    if (sala == null){
+      JOptionPane.showMessageDialog(vistaCali, " El código es inválido o ya fue utilizado");
+    } else{
+      if(sala.next()){
+      String idSala = sala.getString("idSala");
+      int idReserva = sala.getInt("numero");
+      boolean usarCodigo = reserva.usarCodigo(idReserva);
+      if (usarCodigo == true){
+        modelo.setIdentificador(idSala);
+        vistaCali2.txtIdSala.setText(modelo.getIdentificador());
+        vistaCali.setVisible(false);
+        vistaCali2.setVisible(true);
+      }else{
+        JOptionPane.showMessageDialog(vistaCali, "Ha ocurrido un error");
+      }
+      }else{
+      JOptionPane.showMessageDialog(vistaCali, "El código es inválido o ya fue utilizado");
+      }
+    }
+  }
+  
+  private void calificarSala () throws SQLException {
+    if (vistaCali2.validarDatos() == false){
+      JOptionPane.showMessageDialog(vistaCali2, "Nota no es valida");
+    } else {
+      int nota = Integer.parseInt(vistaCali2.txtNota.getText());
+      boolean calificada = dao.califarSala(modelo.getIdentificador(), nota);
+      if (calificada == false){
+        JOptionPane.showMessageDialog(vistaCali2, "Ha ocurrido un error al calificar la sala");
+      } else{
+        JOptionPane.showMessageDialog(vistaCali2, "La Sala ha sido calificada.Gracias.");
+        vistaCali2.setVisible(true);
+      }
+    }
+  }
 }

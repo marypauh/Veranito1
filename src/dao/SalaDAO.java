@@ -188,4 +188,21 @@ public class SalaDAO {
   }
   
   
+  public boolean califarSala(String pIdentificador, int pNota){
+    boolean res = false;
+    try{
+      Connection conexion = Conexion.getConexion();
+      String query = "execute esquema.nuevaCalificacion5 @idSala = ? , @nota = ?";
+      CallableStatement consulta = conexion.prepareCall(query);
+      consulta.setString(1, pIdentificador);
+      consulta.setInt(2,pNota);
+      consulta.execute();
+      res = true;
+    }catch(SQLException e){
+      System.out.println(e);
+    }return res;
+  }
+  
+ 
+  
 }
