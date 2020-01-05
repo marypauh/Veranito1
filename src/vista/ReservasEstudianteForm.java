@@ -12,7 +12,7 @@ import java.sql.ResultSet;
  * @author María Paula
  */
 public class ReservasEstudianteForm extends javax.swing.JFrame {
-    ResultSet reservas;
+    ResultSet reservasE;
 
     /**
      * Creates new form ReservasEstudianteForm
@@ -39,7 +39,6 @@ public class ReservasEstudianteForm extends javax.swing.JFrame {
         reservasTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
-        txtVerIncidentes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,8 +60,6 @@ public class ReservasEstudianteForm extends javax.swing.JFrame {
 
         btnVolver.setText("Cerrar Reservas");
 
-        txtVerIncidentes.setText("Ver Incidentes");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,10 +74,8 @@ public class ReservasEstudianteForm extends javax.swing.JFrame {
                         .addGap(192, 192, 192)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(btnVolver)
-                        .addGap(150, 150, 150)
-                        .addComponent(txtVerIncidentes)))
+                        .addGap(249, 249, 249)
+                        .addComponent(btnVolver)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -91,9 +86,7 @@ public class ReservasEstudianteForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVolver)
-                    .addComponent(txtVerIncidentes))
+                .addComponent(btnVolver)
                 .addContainerGap())
         );
 
@@ -106,6 +99,5 @@ public class ReservasEstudianteForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable reservasTable;
-    public javax.swing.JButton txtVerIncidentes;
     // End of variables declaration//GEN-END:variables
 }

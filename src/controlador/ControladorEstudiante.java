@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import logicadenegocios.Horario;
 import logicadenegocios.Reserva;
 import vista.ConsultarEstudianteForm;
-import vista.IncidentesReservaForm;
 import vista.ReservasEstudianteForm;
 
 /**
@@ -31,24 +30,21 @@ public class ControladorEstudiante implements ActionListener {
   public Estudiante logicadenegocios;
   public ConsultarEstudianteForm vistaConsulta;
   public ReservasEstudianteForm vistaReservas;
-  public IncidentesReservaForm vistaIncidentes;
+  
   
    /**
    * Constructor
    * @param pVista
    * @param pModelo 
    */
-  public ControladorEstudiante(AgregarEstudianteForm pVista, Estudiante pModelo, ConsultarEstudianteForm pVistaConsulta, ReservasEstudianteForm pVistaReservas, IncidentesReservaForm pVistaIncidentes) {
+  public ControladorEstudiante(AgregarEstudianteForm pVista, Estudiante pModelo, ConsultarEstudianteForm pVistaConsulta, ReservasEstudianteForm pVistaReservas) {
     vista = pVista;
     logicadenegocios = pModelo;
     dao = new EstudianteDAO();
     vistaConsulta = pVistaConsulta;
     vistaReservas = pVistaReservas;
-    vistaIncidentes = pVistaIncidentes;
-    this.vistaIncidentes.btnVolver.addActionListener(this);
     this.vistaConsulta.btnVolverMenu.addActionListener(this);
     this.vistaReservas.btnVolver.addActionListener(this);
-    this.vistaReservas.txtVerIncidentes.addActionListener(this);
     this.vistaConsulta.btnConsultar.addActionListener(this);
     this.vistaConsulta.btnReservas.addActionListener(this);
     this.vista.btnAgregar.addActionListener(this);
@@ -81,13 +77,6 @@ public class ControladorEstudiante implements ActionListener {
         break;
       case "Volver Menu":
         this.vistaConsulta.volverMenu();
-        break;
-      case "Ver Incidentes":
-        getIncidentesReserva();
-        break;
-      case "Cerrar Incidentes":
-        this.vistaIncidentes.volverMenu();
-        break;
       default:
         break;
     }
@@ -166,29 +155,6 @@ public class ControladorEstudiante implements ActionListener {
     }
   }
 
- 
-  public void getIncidentesReserva(){
-    int fila = vistaIncidentes.incidentesTable.getSelectedRow() + 1;
-     System.out.println(fila);  
-    int idReserva = (int) vistaIncidentes.incidentesTable.getValueAt(fila,0);
-    System.out.println(idReserva);  
-    ResultSet incidentes = dao.getIncidentesReserva(idReserva);   
-    if (incidentes == null){
-      JOptionPane.showMessageDialog(vista, "Error al cargar incidentes");
-      }else{
-        this.vistaIncidentes.setVisible(true);
-        DefaultTableModel table = new DefaultTableModel();
-        vistaIncidentes.incidentesTable.setModel(table);
-        table.setColumnIdentifiers(new Object[]{"Numero","Detalle", "Valor" ,"Fecha"});
-        try {
-          while(incidentes.next()){
-            table.addRow(new Object[]{incidentes.getInt("numIncidente"), incidentes.getString("estado"), incidentes.getInt("valor"), incidentes.getDate("fecha")});
-          }
-        } catch (SQLException ex) {
-          Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      }
-   }  
   
   
   /**
