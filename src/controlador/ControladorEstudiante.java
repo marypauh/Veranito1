@@ -183,10 +183,11 @@ public class ControladorEstudiante implements ActionListener {
    * Crea y llena la tabla de incidentes segun la reserva deseada
    */
   public void getIncidentesReserva(){ 
-    int idReserva = (int) vistaReservas.reservasTable.getValueAt(vistaReservas.reservasTable.getSelectedRow(),0);
-    ResultSet incidentes = dao.getIncidentesReserva(idReserva);   
-    if (incidentes == null){
-      JOptionPane.showMessageDialog(vista, "Error al cargar incidentes");
+    if (vistaReservas.reservasTable.getSelectedRow() != -1) {
+      int idReserva = (int) vistaReservas.reservasTable.getValueAt(vistaReservas.reservasTable.getSelectedRow(),0);
+      ResultSet incidentes = dao.getIncidentesReserva(idReserva);   
+      if (incidentes == null){
+        JOptionPane.showMessageDialog(vista, "Error al cargar incidentes");
       }else{
         this.vistaIncidentes.setVisible(true);
         DefaultTableModel table = new DefaultTableModel();
@@ -200,7 +201,11 @@ public class ControladorEstudiante implements ActionListener {
           Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
+    } else {
+      JOptionPane.showMessageDialog(vista, "Por favor seleccionar una reserva para ver sus incidentes");
+    }
   }
+  
   
   /**
    * Metodo que regresa a la ventana menu

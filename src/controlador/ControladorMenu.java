@@ -12,6 +12,7 @@ import vista.AgregarRecursosSalaForm;
 import vista.CancelarReservaForm;
 import vista.ConsultarEstudianteForm;
 import vista.IncidentesReservaForm;
+import vista.MenuReportesForm;
 import vista.RegistrarIncidenteReservaForm;
 import vista.RegistrarSalaForm;
 import vista.ReservarSalaForm;
@@ -34,6 +35,7 @@ public class ControladorMenu implements ActionListener {
    */  
   public ControladorMenu(MenuForm pVista){ 
     vista = pVista;
+    this.vista.btnReportes.addActionListener(this);
     this.vista.btnConsultarE.addActionListener(this);
     this.vista.btnAgregarEstudiante.addActionListener(this);
     this.vista.btnCerrar.addActionListener(this);
@@ -81,7 +83,11 @@ public class ControladorMenu implements ActionListener {
         cancelarReserva();
         break;
       case "Consultar Estudiante":
-       consultarEstudiante();
+        consultarEstudiante();
+        break;
+      case "Reportes":
+        verReportes();
+        break;
       default:
         break;
     }
@@ -176,29 +182,40 @@ public class ControladorMenu implements ActionListener {
  /**
  * Metodo para abrir ventana registrar estudiante
  */
-private void agregarEstudiante(){
-  AgregarEstudianteForm vistaAgregarEstudiante = new AgregarEstudianteForm();
-  Estudiante logicadenegocios = new Estudiante();
-  ConsultarEstudianteForm vistaConsulta = new ConsultarEstudianteForm();
-  ReservasEstudianteForm vistaReservas = new ReservasEstudianteForm();
-  IncidentesReservaForm vistaIncidentes = new IncidentesReservaForm();
-  ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios,vistaConsulta,vistaReservas, vistaIncidentes);
-  controladorEstudiante.vista.abrirVentanaAnterior(vistaAgregarEstudiante);
-}
+  private void agregarEstudiante(){
+    AgregarEstudianteForm vistaAgregarEstudiante = new AgregarEstudianteForm();
+    Estudiante logicadenegocios = new Estudiante();
+    ConsultarEstudianteForm vistaConsulta = new ConsultarEstudianteForm();
+    ReservasEstudianteForm vistaReservas = new ReservasEstudianteForm();
+    IncidentesReservaForm vistaIncidentes = new IncidentesReservaForm();
+    ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios,vistaConsulta,vistaReservas, vistaIncidentes);
+    controladorEstudiante.vista.abrirVentanaAnterior(vistaAgregarEstudiante);
+  }
 
 
 /**
  * Metodo para abrir ventana consultar estudiante
  */
-private void consultarEstudiante(){
-  AgregarEstudianteForm vistaAgregarEstudiante = new AgregarEstudianteForm();
-  Estudiante logicadenegocios = new Estudiante();
-  ConsultarEstudianteForm vistaConsulta = new ConsultarEstudianteForm();
-  ReservasEstudianteForm vistaReservas = new ReservasEstudianteForm();
-  IncidentesReservaForm vistaIncidentes = new IncidentesReservaForm();
-  ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios,vistaConsulta,vistaReservas, vistaIncidentes);
-  controladorEstudiante.vistaConsulta.abrirVentanaAnterior(vistaConsulta);
-}
+  private void consultarEstudiante(){
+    AgregarEstudianteForm vistaAgregarEstudiante = new AgregarEstudianteForm();
+    Estudiante logicadenegocios = new Estudiante();
+    ConsultarEstudianteForm vistaConsulta = new ConsultarEstudianteForm();
+    ReservasEstudianteForm vistaReservas = new ReservasEstudianteForm();
+    IncidentesReservaForm vistaIncidentes = new IncidentesReservaForm();
+    ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaAgregarEstudiante,logicadenegocios,vistaConsulta,vistaReservas, vistaIncidentes);
+    controladorEstudiante.vistaConsulta.abrirVentanaAnterior(vistaConsulta);
+  }
+
+
+/**
+ * Metodo que abre el menu de reportes
+ */
+  private void verReportes(){
+    MenuReportesForm vistaReportes = new MenuReportesForm();
+    ControladorMenuReportes controladorReportes = new ControladorMenuReportes(vistaReportes);
+    controladorReportes.vista.abrirVentanaAnterior(vistaReportes);
+    
+  }
 }
   
   

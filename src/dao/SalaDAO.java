@@ -6,12 +6,15 @@
 package dao;
 
 import conexion.Conexion;
+import static dao.EstudianteDAO.conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logicadenegocios.Horario;
 import logicadenegocios.Recurso;
 import logicadenegocios.Sala;
@@ -264,6 +267,18 @@ public class SalaDAO {
     }return res;
   }
   
- 
+  public ResultSet getSalasUtilizadas(){
+    ResultSet rs = null;
+      try {
+        conexion = Conexion.getConexion();
+        Statement ejecutor;
+        ejecutor = conexion.createStatement();
+        rs = ejecutor.executeQuery("select Top 5 idSala,count(*) as contador from esquema.Reserva group by idSala order by contador desc");
+      } catch (SQLException ex) {
+          Logger.getLogger(SalaDAO.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+      return rs;
+    }
   
 }

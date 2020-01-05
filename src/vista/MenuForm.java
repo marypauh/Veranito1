@@ -49,22 +49,31 @@ public class MenuForm extends javax.swing.JFrame {
         btnConsultarSala = new javax.swing.JButton();
         btnCancelarReserva = new javax.swing.JButton();
         btnCalificar = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnAgregarEstudiante.setText("Agregar Estudiante");
+        getContentPane().add(btnAgregarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         btnCerrar.setText("Cerrar");
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, -1, -1));
 
         btnAgregarSala.setText("Agregar Sala");
+        getContentPane().add(btnAgregarSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         btnConsultarE.setText("Consultar Estudiante");
+        getContentPane().add(btnConsultarE, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         btnModificarSala.setText("Modificar Sala");
+        getContentPane().add(btnModificarSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
 
         btnReservarSala.setText("Reservar Sala");
+        getContentPane().add(btnReservarSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         btnRegistrarIncidente.setText("Registrar Incidente");
+        getContentPane().add(btnRegistrarIncidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
 
         btnConsultarSala.setText("Consultar Sala");
         btnConsultarSala.addActionListener(new java.awt.event.ActionListener() {
@@ -72,65 +81,16 @@ public class MenuForm extends javax.swing.JFrame {
                 btnConsultarSalaActionPerformed(evt);
             }
         });
+        getContentPane().add(btnConsultarSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
 
         btnCancelarReserva.setText("Cancelar Reserva");
+        getContentPane().add(btnCancelarReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, -1, -1));
 
         btnCalificar.setText("Calificar Sala");
+        getContentPane().add(btnCalificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(btnCerrar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnReservarSala)
-                            .addComponent(btnAgregarEstudiante)
-                            .addComponent(btnAgregarSala))
-                        .addGap(81, 81, 81)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnConsultarSala)
-                            .addComponent(btnRegistrarIncidente)
-                            .addComponent(btnModificarSala)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(btnCalificar))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnConsultarE)
-                        .addGap(75, 75, 75)
-                        .addComponent(btnCancelarReserva)))
-                .addContainerGap(92, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReservarSala)
-                    .addComponent(btnRegistrarIncidente))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregarEstudiante)
-                    .addComponent(btnModificarSala))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregarSala)
-                    .addComponent(btnConsultarSala))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConsultarE)
-                    .addComponent(btnCancelarReserva))
-                .addGap(18, 18, 18)
-                .addComponent(btnCalificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(btnCerrar)
-                .addContainerGap())
-        );
+        btnReportes.setText("Reportes");
+        getContentPane().add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -150,6 +110,7 @@ public class MenuForm extends javax.swing.JFrame {
     public javax.swing.JButton btnConsultarSala;
     public javax.swing.JButton btnModificarSala;
     public javax.swing.JButton btnRegistrarIncidente;
+    public javax.swing.JButton btnReportes;
     public javax.swing.JButton btnReservarSala;
     // End of variables declaration//GEN-END:variables
 }
