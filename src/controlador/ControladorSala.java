@@ -256,6 +256,8 @@ public void getModificar(){
     }else{
       try{
         String ubicacion = rs.getString("ubicacion");
+        String estado = rs.getString("estado");
+        vistaMostrarSala.estadoCB.setSelectedItem(estado);
         vistaMostrarSala.lblID.setText(id);
         vistaMostrarSala.txtUbicacion.setText(ubicacion);
         modelo.setIdentificador(id);
