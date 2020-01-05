@@ -12,7 +12,7 @@ import java.sql.ResultSet;
  * @author María Paula
  */
 public class ReservasEstudianteForm extends javax.swing.JFrame {
-    ResultSet reservasE;
+    ResultSet reservas;
 
     /**
      * Creates new form ReservasEstudianteForm

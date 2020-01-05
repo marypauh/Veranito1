@@ -448,7 +448,8 @@ public void consultarSala(){
   }
 }
   
-  
+
+
   private void validarCodigo () throws SQLException {
     String codigo = vistaCali.txtCodigo.getText();
     ResultSet sala = reserva.verificarCodigo(codigo);
@@ -488,4 +489,5 @@ public void consultarSala(){
       }
     }
   }
+  
 }
