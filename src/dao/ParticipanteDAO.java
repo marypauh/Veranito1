@@ -25,26 +25,33 @@ public class ParticipanteDAO {
    * @return
    * @throws SQLException 
    */
-  public int agregarParticipantes(ArrayList<Participante> PlistaParticipantes,int idReserva,int pCapacidadMax) throws SQLException{
+  public void agregarParticipantesReserva(ArrayList<Participante> PlistaParticipantes,int idReserva) throws SQLException{
+    CallableStatement cstmt = null;
+    int contador = 0;
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.agregarParticipantesReserva(?,?,?)}");
+    while(PlistaParticipantes.size()-1>=contador){
+        cstmt.setInt(1,idReserva);
+        cstmt.setString(2,PlistaParticipantes.get(contador).getNombre());
+        cstmt.setString(3,PlistaParticipantes.get(contador).getEmail());
+        cstmt.executeUpdate();
+        contador++;
+    }
+  }
+  
+  public void agregarParticipantes(ArrayList<Participante> PlistaParticipantes) throws SQLException{
     CallableStatement cstmt = null;
     int rs = 0;
     int contador = 0;
     conexion = Conexion.getConexion();
-    cstmt = conexion.prepareCall("{call esquema.agregarParticipantes(?,?,?)}");
-    if(PlistaParticipantes.size()<=pCapacidadMax){
-      while(PlistaParticipantes.size()-1>=contador){
-        cstmt.setInt(1,idReserva);
-        cstmt.setString(2,PlistaParticipantes.get(contador).getNombre());
-        cstmt.setString(3,PlistaParticipantes.get(contador).getEmail());
-        rs = cstmt.executeUpdate();
+    cstmt = conexion.prepareCall("{call esquema.agregarParticipantes(?,?)}");
+    while(PlistaParticipantes.size()-1>=contador){
+        cstmt.setString(1,PlistaParticipantes.get(contador).getNombre());
+        cstmt.setString(2,PlistaParticipantes.get(contador).getEmail());
+        cstmt.executeUpdate();
         contador++;
-      }
-      return contador+1;
-    } else {
-      return 0;
     }
   }
-  
   
   /**
    * Metodo para enviar correo a los participantes de la reserva

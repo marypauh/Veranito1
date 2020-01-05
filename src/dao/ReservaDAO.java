@@ -45,14 +45,16 @@ public class ReservaDAO {
   
   /**
    * Metodo para la consulta de la sala
+     * @param pCapacidadMin
    * @return salas
    * @throws SQLException 
    */
-  public ResultSet consultarSalas() throws SQLException{
+  public ResultSet consultarSalas(int pCapacidadMin) throws SQLException{
     ResultSet rs = null;
     conexion = Conexion.getConexion();
-    Statement ejecutor = conexion.createStatement();
-    rs = ejecutor.executeQuery("{call esquema.consultarSalas}");
+    CallableStatement cstmt = conexion.prepareCall("{call esquema.consultarSalas(?)}");
+    cstmt.setInt(1, pCapacidadMin);
+    rs = cstmt.executeQuery();
     return rs;
   }
   
@@ -150,7 +152,6 @@ public class ReservaDAO {
     int rs = 0;
     CallableStatement cstmt = null;        
     conexion = Conexion.getConexion();
-    Statement ejecutor = conexion.createStatement();
     cstmt = conexion.prepareCall("{call esquema.cancelarReserva(?)}");
     cstmt.setInt(1, pNumero);
     rs = cstmt.executeUpdate();
@@ -251,4 +252,52 @@ public class ReservaDAO {
     cstmt.setInt(2,valor);
     cstmt.executeUpdate();
   }
+  
+  public int comprobarCalificacionEstudiante(int pOrganizador) throws SQLException{
+    ResultSet rs = null;
+    int calificacion = 0;
+    CallableStatement cstmt = null;        
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.obtenerCalificacionEstudiante(?)}");
+    cstmt.setInt(1, pOrganizador);
+    rs = cstmt.executeQuery();
+    while(rs.next()){
+      calificacion = rs.getInt("calificacion");
+    }
+    return calificacion;
+  }
+  
+  public int comprobarCantidadReservas(Date pFecha, int pOrganizador) throws SQLException{
+    ResultSet rs = null;
+    int contador = 0;
+    int numSemana = obtenerNumSemana(pFecha);
+    CallableStatement cstmt = null;        
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.obtenerFechaReserva(?)}");
+    cstmt.setInt(1,pOrganizador);
+    rs = cstmt.executeQuery();
+    while(rs.next()){
+      if(obtenerNumSemana(pFecha)==numSemana){
+        contador++;
+      }
+    }
+    return contador;
+  }
+  
+  
+  public int obtenerNumSemana(Date pFecha) throws SQLException{
+    ResultSet rs = null;
+    int numSemana = 0;
+    CallableStatement cstmt = null;        
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.obtenerNumSemana(?)}");
+    java.sql.Date fecha = new java.sql.Date(pFecha.getTime());
+    cstmt.setDate(1,fecha);
+    rs = cstmt.executeQuery();
+    while(rs.next()){
+      numSemana = rs.getInt("numSemana");
+    }
+    return numSemana;
+  }
+  
 }  

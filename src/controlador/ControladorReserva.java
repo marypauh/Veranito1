@@ -75,6 +75,8 @@ public class ControladorReserva implements ActionListener {
             filtrarSalas();
         } catch (SQLException ex) {
             Logger.getLogger(ControladorReserva.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ControladorReserva.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
         break;
@@ -136,18 +138,31 @@ public class ControladorReserva implements ActionListener {
     String asunto = vista.txtAsunto.getText();
     String idSala = (String)vista.salasTable.getValueAt(vista.salasTable.getSelectedRow(),0);
     int idReserva = dao.obtenerIdReserva();
-    String codigoCalificacion = idSala+"-"+organizador+"-"+idReserva;
     logicadenegocios = new Reserva(fecha, horaInicio,horaFin,asunto,organizador,idSala);
-    Reserva reserva = dao.agregarReserva(logicadenegocios);
-    int participantesAgregados = participanteDao.agregarParticipantes(listaParticipantes, idReserva,12);
-    if (reserva != null&&participantesAgregados>0){
-      vista.setVisible(false);
-      JOptionPane.showMessageDialog(vista, "Se reservo la sala exitosamente");
-      participanteDao.enviarCorreoParticipantes(listaParticipantes,idSala,horaInicio,horaFin,fecha);
-      JOptionPane.showMessageDialog(vista,"Correo de invitación enviado a los participantes");
-      vista.setVisible(true);
+    int capacidadMax = (int)vista.salasTable.getValueAt(vista.salasTable.getSelectedRow(),2);
+    System.out.println(dao.comprobarCantidadReservas(fecha, organizador));
+    if(listaParticipantes.size()<=capacidadMax){
+      if(dao.comprobarCalificacionEstudiante(organizador)>70){
+        if(dao.comprobarCantidadReservas(fecha,organizador)<3){
+          participanteDao.agregarParticipantesReserva(listaParticipantes, idReserva);
+          participanteDao.agregarParticipantes(listaParticipantes);
+          Reserva reserva = dao.agregarReserva(logicadenegocios);
+          if (reserva != null){
+            vista.setVisible(false);
+            JOptionPane.showMessageDialog(vista, "Se reservo la sala exitosamente");
+            participanteDao.enviarCorreoParticipantes(listaParticipantes,idSala,horaInicio,horaFin,fecha);
+            JOptionPane.showMessageDialog(vista,"Correo de invitación enviado a los participantes");
+            vista.setVisible(true);
+          } else {
+            JOptionPane.showMessageDialog(vista,"No es posible reservar la sala");
+          }  
+        } else{
+          JOptionPane.showMessageDialog(vista,"Solo se pueden reservar un maximo de 3 salas por semana");      
+        }} else {
+           JOptionPane.showMessageDialog(vista,"El estudiante no cumple con la calificacion minima requerida");
+    }
     } else {
-      JOptionPane.showMessageDialog(vista,"No es posible reservar la sala");
+      JOptionPane.showMessageDialog(vista,"La cantidad de participantes excede la capacidad maxima de la sala");
     }
   }
   
@@ -155,20 +170,26 @@ public class ControladorReserva implements ActionListener {
    * 
      * @throws java.sql.SQLException
    */
-  public void filtrarSalas() throws SQLException{
-    ResultSet salas = dao.consultarSalas();
+  public void filtrarSalas() throws SQLException, ParseException{
+    ResultSet salas = dao.consultarSalas(Integer.parseInt(vista.txtCapacidadMinima.getText()));
     if (salas == null){
         JOptionPane.showMessageDialog(vista, "Error al cargar reservas");
     }else{
         DefaultTableModel table = new DefaultTableModel();
         vista.salasTable.setModel(table);
         table.setColumnIdentifiers(new Object[]{"Identificador","Ubicacion","Capacidad Maxima","Estado","Calificacion","Hora Inicio","Hora Fin","Dias"});
-        try {
+        if(comprobarDiferenciaHoras(vista.txtHoraInicio.getText(),vista.txtHoraFin.getText())<0){
+          try {
             while(salas.next()){
-                table.addRow(new Object[]{salas.getString("identificador"),salas.getString("ubicacion"),salas.getInt("capacidadMax"),salas.getString("estado"),salas.getInt("calificacion"),salas.getString("horaInicio"),salas.getString("horaFin"),salas.getString("dias")});
+              if(comprobarHoraInicio(salas.getString("horaInicio"),vista.txtHoraInicio.getText())<=0&&comprobarHoraFin(salas.getString("horaFin"),vista.txtHoraFin.getText())>=0){
+                table.addRow(new Object[]{salas.getString("identificador"),salas.getString("ubicacion"),salas.getInt("capacidadMax"),salas.getString("estado"),salas.getInt("calificacion"),salas.getString("horaInicio"),salas.getString("horaFin"),salas.getString("dias")});   
+              }
             }
-        } catch (SQLException ex) {
+          } catch (SQLException ex) {
             Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        } else {
+          JOptionPane.showMessageDialog(vista,"ERROR- La hora de inicio excede la hora de finalizacion");
         }
     }
   }
@@ -271,5 +292,25 @@ public class ControladorReserva implements ActionListener {
     return true;
    }
   }
-
+  
+  public int comprobarHoraInicio(String pHoraInicio,String pHoraInicioSala) throws ParseException{
+    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+    java.util.Date hora1 = formatter.parse(pHoraInicio);
+    java.util.Date hora2 = formatter.parse(pHoraInicioSala);
+    return hora1.compareTo(hora2);  
+  }
+  
+  public int comprobarHoraFin(String pHoraInicio,String pHoraInicioSala) throws ParseException{
+    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+    java.util.Date hora1 = formatter.parse(pHoraInicio);
+    java.util.Date hora2 = formatter.parse(pHoraInicioSala);
+    return hora1.compareTo(hora2);  
+  }
+  
+  public int comprobarDiferenciaHoras(String pHoraInicio,String pHoraFin) throws ParseException{
+    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+    java.util.Date hora1 = formatter.parse(pHoraInicio);
+    java.util.Date hora2 = formatter.parse(pHoraFin);
+    return hora1.compareTo(hora2);  
+  }
 }
