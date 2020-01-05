@@ -207,7 +207,7 @@ public class ControladorReserva implements ActionListener {
         table.setColumnIdentifiers(new Object[]{"Numero","Estado", "Fecha", "Hora Inicio","Hora Fin", "Codigo Calificacion", "Asunto", "Organizador","Id Sala"});
         try {
             while(reservas.next()){
-                if(verificarHoraInicio(reservas.getString("horaInicio"))==true){
+                if(verificarHoraInicio(reservas.getString("horaInicio"))==true&&!"Cancelada".equals(reservas.getString("estado"))){
                   table.addRow(new Object[]{reservas.getInt("numero"), reservas.getString("estado"), reservas.getDate("fecha"), reservas.getString("horaInicio"), reservas.getString("horaFin"), reservas.getString("codigoCalificacion"), reservas.getString("asunto"), reservas.getInt("organizador"),reservas.getString("idSala")});
                 }
             }
@@ -223,8 +223,13 @@ public class ControladorReserva implements ActionListener {
     if(cancelado>0){
       vistaCancelar.setVisible(false);
       JOptionPane.showMessageDialog(vistaCancelar, "Se cancelo la reserva exitosamente");
-      vistaCancelar.setVisible(true);
+      String idSala = (String)vistaCancelar.reservasTable.getValueAt(vistaCancelar.reservasTable.getSelectedRow(),8);
+      int organizador = (int)vistaCancelar.reservasTable.getValueAt(vistaCancelar.reservasTable.getSelectedRow(),7);
+      dao.notificarParticipantes(numero,idSala);
+      dao.notificarOrganizador(organizador,idSala);
+      JOptionPane.showMessageDialog(vistaCancelar,"Notificacion enviada los participantes");
       cargarReservas();
+      vistaCancelar.setVisible(true);
     } else{
       JOptionPane.showMessageDialog(vistaCancelar,"Error al cancelar la reserva"); 
     }
@@ -241,8 +246,6 @@ public class ControladorReserva implements ActionListener {
     LocalTime t = LocalTime.parse(pHoraInicio);
     comprobarHora = t.getHour()-hora;
     comprobarMinutos = t.getMinute()-minutos;
-    System.out.println(comprobarHora);
-    System.out.println(comprobarMinutos);
     if(comprobarHora >= 1 && comprobarMinutos>=0){
       return true;
     } else {

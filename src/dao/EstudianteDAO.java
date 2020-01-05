@@ -78,4 +78,17 @@ public class EstudianteDAO {
     }
     return rs;
   }
+  
+  
+  public ResultSet getIncidentesReserva(int pIdReserva){
+    ResultSet rs = null;
+    try{
+      conexion = Conexion.getConexion();
+      Statement ejecutor = conexion.createStatement();
+      rs = ejecutor.executeQuery("select numIncidente,detalle,valor,fecha from esquema.Incidente, esquema.IncidenteReserva where idIncidente = numIncidente and idReserva = " + pIdReserva );
+    }catch(SQLException e){
+      System.out.println(e);  
+    }
+    return rs;
+  }
 }

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import logicadenegocios.Participante;
 import logicadenegocios.Reserva;
+import util.EnviarCorreo;
 
 /**
  *
@@ -129,4 +130,32 @@ public class ReservaDAO {
     }return res;
   }
 
+  
+  public void notificarParticipantes(int pNumero,String pIdSala) throws SQLException{
+    ResultSet rs = null;
+    String msg = "Ha sido cancelada la reserva de la sala: "+pIdSala;
+    String asunto = "Notificación de cancelacion de reserva";
+    CallableStatement cstmt = null;
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.obtenerEmailParticipantes(?)}");
+    cstmt.setInt(1, pNumero);
+    rs = cstmt.executeQuery();
+    while(rs.next()){
+      EnviarCorreo.enviarCorreo(rs.getString("email"),asunto,msg);
+    }
+  }
+  
+  public void notificarOrganizador(int pOrganizador,String pIdSala) throws SQLException{
+    ResultSet rs = null;
+    String msg = "Ha sido cancelada la reserva de la sala: "+pIdSala;
+    String asunto = "Notificación de cancelacion de reserva";
+    CallableStatement cstmt = null;
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.obtenerCorreoEstudiante(?)}");
+    cstmt.setInt(1, pOrganizador);
+    rs = cstmt.executeQuery();
+    while(rs.next()){
+      EnviarCorreo.enviarCorreo(rs.getString("email"),asunto,msg);
+    }
+  }
 }  
