@@ -6,6 +6,7 @@
 package controlador;
 
 import dao.IncidenteDAO;
+import dao.ReservaDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -26,6 +27,7 @@ import vista.RegistrarIncidenteReservaForm;
 public class ControladorIncidente implements ActionListener {
   public RegistrarIncidenteReservaForm vista;
   public IncidenteDAO dao;
+  public ReservaDAO reservaDAO;
   public Incidente logicadenegocios;
 
   
@@ -38,6 +40,7 @@ public class ControladorIncidente implements ActionListener {
     vista = pVista;
     logicadenegocios = pModelo;
     dao = new IncidenteDAO();
+    reservaDAO = new ReservaDAO();
     this.vista.btnRegistrarIncidente.addActionListener(this);
     this.vista.btnVolver.addActionListener(this);
     this.vista.btnCargarReservas.addActionListener(this);
@@ -110,7 +113,7 @@ public class ControladorIncidente implements ActionListener {
   }
 
   public void cargarReservas() throws SQLException{
-    ResultSet reservas = dao.consultarReservas();
+    ResultSet reservas = reservaDAO.consultarReservas();
     if (reservas == null){
         JOptionPane.showMessageDialog(vista, "Error al cargar reservas");
     }else{

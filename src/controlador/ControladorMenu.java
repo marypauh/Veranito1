@@ -8,6 +8,7 @@ import logicadenegocios.Sala;
 import vista.MenuForm;
 import vista.AgregarEstudianteForm;
 import vista.AgregarRecursosSalaForm;
+import vista.CancelarReservaForm;
 import vista.ConsultarEstudianteForm;
 import vista.RegistrarIncidenteReservaForm;
 import vista.RegistrarSalaForm;
@@ -43,6 +44,7 @@ public class ControladorMenu implements ActionListener {
     this.vista.btnReservarSala.addActionListener(this);
     this.vista.btnRegistrarIncidente.addActionListener(this);
     this.vista.btnConsultarSala.addActionListener(this);
+    this.vista.btnCancelarReserva.addActionListener(this);
   }
   
   
@@ -72,6 +74,9 @@ public class ControladorMenu implements ActionListener {
         break;
       case "Consultar Sala":
         consultarSala();
+        break;
+      case "Cancelar Reserva":
+        cancelarReserva();
         break;
       case "Consultar Estudiante":
        controladorEstudiante.vistaConsulta.abrirVentanaAnterior(vistaConsulta);
@@ -122,6 +127,14 @@ public class ControladorMenu implements ActionListener {
     ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
     controlador.vistaConsulta.setVisible(true);
   }
+  
+  private void cancelarReserva(){
+    CancelarReservaForm vistaCancelarReserva = new CancelarReservaForm();
+    Reserva reserva = new Reserva();
+    ControladorReserva controladorReserva = new ControladorReserva(vistaCancelarReserva, reserva);
+    controladorReserva.vistaCancelar.setVisible(true);
+  }
+  
 }
   
   

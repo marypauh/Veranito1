@@ -14,7 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,7 @@ import logicadenegocios.Estudiante;
 import logicadenegocios.Participante;
 import logicadenegocios.Reserva;
 import logicadenegocios.Sala;
+import vista.CancelarReservaForm;
 import vista.ReservarSalaForm;
 
 /**
@@ -32,6 +35,7 @@ import vista.ReservarSalaForm;
  */
 public class ControladorReserva implements ActionListener {
   public ReservarSalaForm vista;
+  public CancelarReservaForm vistaCancelar;
   public ReservaDAO dao;
   public Reserva logicadenegocios;
   public ArrayList<Participante> listaParticipantes;
@@ -54,7 +58,15 @@ public class ControladorReserva implements ActionListener {
     this.vista.btnVolver.addActionListener(this);
     this.vista.btnAgregar.addActionListener(this);
   }
-
+  
+  public ControladorReserva(CancelarReservaForm pVista, Reserva pModelo) {
+    vistaCancelar = pVista;
+    logicadenegocios = pModelo;
+    dao = new ReservaDAO();
+    this.vistaCancelar.btnVolver.addActionListener(this);
+    this.vistaCancelar.btnCargarReservas.addActionListener(this);
+    this.vistaCancelar.btnCancelarReserva.addActionListener(this);
+  }
     
   /**
    * Al dar click al boton este ejecuta el proceso agregarsala()
@@ -85,8 +97,29 @@ public class ControladorReserva implements ActionListener {
       case "Volver":
         volverMenu();
         break;
+      case "Menu":
+        ventanaAnterior();
+        break;
       case "Agregar":
         agregarParticipantes();
+        break;
+      case "Cargar Reservas":
+    {
+        try {
+            cargarReservas();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorReserva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        break;
+      case "Cancelar Reserva":
+    {
+        try {
+            cancelarReserva();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorReserva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
         break;
       default:
         break;
@@ -159,6 +192,63 @@ public class ControladorReserva implements ActionListener {
   public void volverMenu(){
     vista.volverMenu();
   }
+  
+  public void ventanaAnterior(){
+    vistaCancelar.volverMenu();
+  }
 
+  public void cargarReservas() throws SQLException{
+    ResultSet reservas = dao.consultarReservas();
+    if (reservas == null){
+        JOptionPane.showMessageDialog(vista, "Error al cargar reservas");
+    }else{
+        DefaultTableModel table = new DefaultTableModel();
+        vistaCancelar.reservasTable.setModel(table);
+        table.setColumnIdentifiers(new Object[]{"Numero","Estado", "Fecha", "Hora Inicio","Hora Fin", "Codigo Calificacion", "Asunto", "Organizador","Id Sala"});
+        try {
+            while(reservas.next()){
+                if(verificarHoraInicio(reservas.getString("horaInicio"))==true){
+                  table.addRow(new Object[]{reservas.getInt("numero"), reservas.getString("estado"), reservas.getDate("fecha"), reservas.getString("horaInicio"), reservas.getString("horaFin"), reservas.getString("codigoCalificacion"), reservas.getString("asunto"), reservas.getInt("organizador"),reservas.getString("idSala")});
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+  }
+  
+  public void cancelarReserva() throws SQLException{
+    int numero = (int)vistaCancelar.reservasTable.getValueAt(vistaCancelar.reservasTable.getSelectedRow(),0);
+    int cancelado = dao.cancelarReserva(numero);
+    if(cancelado>0){
+      vistaCancelar.setVisible(false);
+      JOptionPane.showMessageDialog(vistaCancelar, "Se cancelo la reserva exitosamente");
+      vistaCancelar.setVisible(true);
+      cargarReservas();
+    } else{
+      JOptionPane.showMessageDialog(vistaCancelar,"Error al cancelar la reserva"); 
+    }
+  }
+  
+  
+  public boolean verificarHoraInicio(String pHoraInicio){
+    int comprobarHora = 0;
+    int comprobarMinutos = 0;
+    Calendar calendario = Calendar.getInstance();
+    int hora, minutos;
+    hora =calendario.get(Calendar.HOUR_OF_DAY);
+    minutos = calendario.get(Calendar.MINUTE);
+    LocalTime t = LocalTime.parse(pHoraInicio);
+    comprobarHora = t.getHour()-hora;
+    comprobarMinutos = t.getMinute()-minutos;
+    System.out.println(comprobarHora);
+    System.out.println(comprobarMinutos);
+    if(comprobarHora >= 1 && comprobarMinutos>=0){
+      return true;
+    } else {
+      return false;
+    }
+    
+  }
 
 }

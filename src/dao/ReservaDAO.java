@@ -6,6 +6,7 @@
 package dao;
 
 import conexion.Conexion;
+import static dao.IncidenteDAO.conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -84,5 +85,24 @@ public class ReservaDAO {
     Statement ejecutor = conexion.createStatement();
     res = ejecutor.executeQuery("execute dbo.getProxReservas '" + identificador +"'");
     return res;
+  }
+  
+  public ResultSet consultarReservas() throws SQLException{
+    ResultSet rs = null;
+    conexion = Conexion.getConexion();
+    Statement ejecutor = conexion.createStatement();
+    rs = ejecutor.executeQuery("{call esquema.consultarReservas}");
+    return rs;
+  }
+  
+  public int cancelarReserva(int pNumero) throws SQLException{
+    int rs = 0;
+    CallableStatement cstmt = null;        
+    conexion = Conexion.getConexion();
+    Statement ejecutor = conexion.createStatement();
+    cstmt = conexion.prepareCall("{call esquema.cancelarReserva(?)}");
+    cstmt.setInt(1, pNumero);
+    rs = cstmt.executeUpdate();
+    return rs;
   }
 }  

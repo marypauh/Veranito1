@@ -24,14 +24,6 @@ import dao.EstudianteDAO;
 public class IncidenteDAO {
   public static Connection conexion;
   
-  public ResultSet consultarReservas() throws SQLException{
-    ResultSet rs = null;
-    conexion = Conexion.getConexion();
-    Statement ejecutor = conexion.createStatement();
-    rs = ejecutor.executeQuery("{call esquema.consultarReservas}");
-    return rs;
-  }
-  
   public Incidente agregarIncidente(Incidente pIncidente) throws SQLException{
     CallableStatement cstmt = null;
     int rs = 0;
