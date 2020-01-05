@@ -169,8 +169,7 @@ public class ControladorEstudiante implements ActionListener {
 
   
   public void getIncidentesReserva(){ 
-    int idReserva = (int) vistaIncidentes.incidentesTable.getValueAt(vistaIncidentes.incidentesTable.getSelectedRow(),0);
-    System.out.println(idReserva);  
+    int idReserva = (int) vistaReservas.reservasTable.getValueAt(vistaReservas.reservasTable.getSelectedRow(),0);
     ResultSet incidentes = dao.getIncidentesReserva(idReserva);   
     if (incidentes == null){
       JOptionPane.showMessageDialog(vista, "Error al cargar incidentes");
@@ -181,7 +180,7 @@ public class ControladorEstudiante implements ActionListener {
         table.setColumnIdentifiers(new Object[]{"Numero","Detalle", "Valor" ,"Fecha"});
         try {
           while(incidentes.next()){
-            table.addRow(new Object[]{incidentes.getInt("numIncidente"), incidentes.getString("estado"), incidentes.getInt("valor"), incidentes.getDate("fecha")});
+            table.addRow(new Object[]{incidentes.getInt("numIncidente"), incidentes.getString("detalle"), incidentes.getInt("valor"), incidentes.getDate("fecha")});
           }
         } catch (SQLException ex) {
           Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
