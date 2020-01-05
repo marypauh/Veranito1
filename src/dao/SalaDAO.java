@@ -273,11 +273,11 @@ public class SalaDAO {
         conexion = Conexion.getConexion();
         Statement ejecutor;
         ejecutor = conexion.createStatement();
-        rs = ejecutor.executeQuery("select Top 5 idSala,count(*) as contador from esquema.Reserva group by idSala order by contador desc");
+        rs = ejecutor.executeQuery("select idSala,count(*) as contador from esquema.Reserva group by idSala order by contador desc");
       } catch (SQLException ex) {
           Logger.getLogger(SalaDAO.class.getName()).log(Level.SEVERE, null, ex);
       }
-      
+      System.out.println(rs);
       return rs;
     }
   

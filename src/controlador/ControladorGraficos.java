@@ -30,8 +30,9 @@ public class ControladorGraficos implements ActionListener {
   public TopSalas1Form vista;
   public SalaDAO dao;
 
-  public ControladorGraficos(TopSalas1Form pVista) {
+  public ControladorGraficos(TopSalas1Form pVista, SalaDAO pDao) {
     vista = pVista;
+    dao = pDao;
     this.vista.btnCerrar.addActionListener(this);
     this.vista.btnGraficar.addActionListener(this);
   }
@@ -50,7 +51,9 @@ public class ControladorGraficos implements ActionListener {
     }
   }
   
-  public void getTopSalas1(){
+  
+  
+ public void getTopSalas1(){
     ResultSet topSalas = dao.getSalasUtilizadas();
     if (topSalas == null){
         JOptionPane.showMessageDialog(vista, "Error al cargar el top salas");
@@ -63,22 +66,17 @@ public class ControladorGraficos implements ActionListener {
             int contador = topSalas.getInt("contador");
             datos.setValue(contador, "Salas", idSala);
             }
-            JFreeChart ch = ChartFactory.createBarChart("Salas mas utilizadas","Salas", "Reservas", datos, PlotOrientation.VERTICAL, true, true, false);
-            ChartPanel Panel = new ChartPanel(ch);
-            this.vista.getContentPane().add(Panel);
-            this.vista.setSize(800,500);
-            this.vista.setVisible(true);
-            this.vista.setLocationRelativeTo(null);
+            JFreeChart ch = ChartFactory.createBarChart3D("Salas mas utilizadas", "Sala", "Cantidad", datos,PlotOrientation.VERTICAL, true, true, false);
+            ChartPanel cp = new ChartPanel(ch);
+            cp.setBounds(500,40,500,400);
+            this.vista.getContentPane().add(cp);
         } catch (SQLException ex) {
             Logger.getLogger(ControladorGraficos.class.getName()).log(Level.SEVERE, null, ex);
         }
-              
-            }
-      
-            
-            
+    }
+  }
           
     }
-}
+
      
    

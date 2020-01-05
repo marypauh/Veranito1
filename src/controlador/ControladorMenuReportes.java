@@ -1,5 +1,6 @@
 package controlador;
 
+import dao.SalaDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vista.MenuReportesForm;
@@ -62,8 +63,10 @@ public class ControladorMenuReportes implements ActionListener {
  */
   private void abrirGrafico1(){
     TopSalas1Form vista1 = new TopSalas1Form();
-    ControladorGraficos controlador = new ControladorGraficos(vista1);
+    SalaDAO dao = new SalaDAO();
+    ControladorGraficos controlador = new ControladorGraficos(vista1,dao);
     controlador.vista.setVisible(true);
+
 }
   
 }
