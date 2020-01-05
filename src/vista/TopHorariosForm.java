@@ -11,12 +11,12 @@ import java.sql.ResultSet;
  *
  * @author María Paula
  */
-public class TopSalas1Form extends javax.swing.JFrame {
-  ResultSet topSalas;
+public class TopHorariosForm extends javax.swing.JFrame {
+  ResultSet topHorarios;
     /**
      * Creates new form TopSalas1Form
      */
-    public TopSalas1Form() {
+    public TopHorariosForm() {
         initComponents();
     }
     
@@ -38,9 +38,9 @@ public class TopSalas1Form extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnCerrar.setText("Cerrar Salas");
+        btnCerrar.setText("Cerrar Horarios");
 
-        btnGraficar.setText("Graficar Salas");
+        btnGraficar.setText("Graficar Horarios");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -51,7 +51,7 @@ public class TopSalas1Form extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGraficar)
                     .addComponent(btnCerrar))
-                .addContainerGap(570, Short.MAX_VALUE))
+                .addContainerGap(546, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

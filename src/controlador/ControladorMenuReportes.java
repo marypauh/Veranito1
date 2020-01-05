@@ -4,6 +4,7 @@ import dao.SalaDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vista.MenuReportesForm;
+import vista.TopHorariosForm;
 import vista.TopSalas1Form;
 
 
@@ -41,7 +42,7 @@ public class ControladorMenuReportes implements ActionListener {
         abrirGrafico1();
         break;
       case "Horarios más utilizados": 
-      
+        abrirGrafico2();
         break;
       case "Carreras que más usan salas": 
        
@@ -64,8 +65,18 @@ public class ControladorMenuReportes implements ActionListener {
   private void abrirGrafico1(){
     TopSalas1Form vista1 = new TopSalas1Form();
     SalaDAO dao = new SalaDAO();
-    ControladorGraficos controlador = new ControladorGraficos(vista1,dao);
-    controlador.vista.setVisible(true);
+    TopHorariosForm vista2 = new TopHorariosForm();
+    ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2);
+    controlador.vista1.setVisible(true);
+
+}
+  
+    private void abrirGrafico2(){
+    TopSalas1Form vista1 = new TopSalas1Form();
+    SalaDAO dao = new SalaDAO();
+    TopHorariosForm vista2 = new TopHorariosForm();
+    ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2);
+    controlador.vista2.setVisible(true);
 
 }
   

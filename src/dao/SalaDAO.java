@@ -281,4 +281,21 @@ public class SalaDAO {
       return rs;
     }
   
+  
+  public ResultSet getHorariosUtilizados(){
+    ResultSet rs = null;
+    try {
+        conexion = Conexion.getConexion();
+        Statement ejecutor;
+        ejecutor = conexion.createStatement();
+        rs = ejecutor.executeQuery("select top 5 esquema.SalaHorario.idHorario, count(*) as contador from esquema.SalaHorario, esquema.Horario where esquema.SalaHorario.idHorario = esquema.Horario.idHorario group by esquema.SalaHorario.idHorario order by contador desc");
+      } catch (SQLException ex) {
+          Logger.getLogger(SalaDAO.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      System.out.println(rs);
+      return rs;
+  
+  
+  }
+  
 }
