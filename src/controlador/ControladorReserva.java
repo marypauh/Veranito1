@@ -123,7 +123,7 @@ public class ControladorReserva implements ActionListener {
 
   
   /**
-   * Metodo par agregar sala a la base de datos
+   * Metodo para agregar reserva a la base de datos
      * @throws java.text.ParseException
    * @throws SQLException 
    */
@@ -192,8 +192,12 @@ public class ControladorReserva implements ActionListener {
     vistaCancelar.volverMenu();
   }
 
+  /**
+   * Metodo para cargar las reservas en la tabla de la vista
+   * @throws SQLException 
+   */
   public void cargarReservas() throws SQLException{
-    ResultSet reservas = dao.consultarReservas();
+    ResultSet reservas = dao.consultarReservasValidas();
     if (reservas == null){
         JOptionPane.showMessageDialog(vista, "Error al cargar reservas");
     }else{
@@ -202,7 +206,7 @@ public class ControladorReserva implements ActionListener {
         table.setColumnIdentifiers(new Object[]{"Numero","Estado", "Fecha", "Hora Inicio","Hora Fin", "Codigo Calificacion", "Asunto", "Organizador","Id Sala"});
         try {
             while(reservas.next()){
-                if(verificarHoraInicio(reservas.getString("horaInicio"))==true&&!"Cancelada".equals(reservas.getString("estado"))){
+                if(verificarHoraInicio(reservas.getString("horaInicio"),reservas.getDate("fecha"))==true&&!"Cancelada".equals(reservas.getString("estado"))){
                   table.addRow(new Object[]{reservas.getInt("numero"), reservas.getString("estado"), reservas.getDate("fecha"), reservas.getString("horaInicio"), reservas.getString("horaFin"), reservas.getString("codigoCalificacion"), reservas.getString("asunto"), reservas.getInt("organizador"),reservas.getString("idSala")});
                 }
             }
@@ -212,6 +216,10 @@ public class ControladorReserva implements ActionListener {
     }
   }
   
+  /**
+   * Metodo para pasar el estado de la reserva a cancelado
+   * @throws SQLException
+   */
   public void cancelarReserva() throws SQLException{
     int numero = (int)vistaCancelar.reservasTable.getValueAt(vistaCancelar.reservasTable.getSelectedRow(),0);
     int cancelado = dao.cancelarReserva(numero);
@@ -222,6 +230,7 @@ public class ControladorReserva implements ActionListener {
       int organizador = (int)vistaCancelar.reservasTable.getValueAt(vistaCancelar.reservasTable.getSelectedRow(),7);
       dao.notificarParticipantes(numero,idSala);
       dao.notificarOrganizador(organizador,idSala);
+      dao.bajarCalificacionEstudiante(organizador,1);
       JOptionPane.showMessageDialog(vistaCancelar,"Notificacion enviada los participantes");
       cargarReservas();
       vistaCancelar.setVisible(true);
@@ -230,23 +239,37 @@ public class ControladorReserva implements ActionListener {
     }
   }
   
-  
-  public boolean verificarHoraInicio(String pHoraInicio){
-    int comprobarHora = 0;
-    int comprobarMinutos = 0;
-    Calendar calendario = Calendar.getInstance();
-    int hora, minutos;
-    hora =calendario.get(Calendar.HOUR_OF_DAY);
-    minutos = calendario.get(Calendar.MINUTE);
-    LocalTime t = LocalTime.parse(pHoraInicio);
-    comprobarHora = t.getHour()-hora;
-    comprobarMinutos = t.getMinute()-minutos;
-    if(comprobarHora >= 1 && comprobarMinutos>=0){
-      return true;
-    } else {
-      return false;
-    }
-    
+  /**
+   * Metodo para verificar si la reserva esta al menos de una hora de su comienzo
+   * @param pHoraInicio hora de inicio de la reserva
+   * @param pFecha fecha en que se da la reserva
+   * @return true si la reserva esta al menos de una hora de su comienzo
+   */
+  public boolean verificarHoraInicio(String pHoraInicio,Date pFecha){
+   Calendar fecha1 = Calendar.getInstance();
+   fecha1.setTime(pFecha);
+   Calendar fecha2 = Calendar.getInstance();
+   if(fecha1.before(fecha2)==true){
+     int comprobarHora = 0;
+     int comprobarMinutos = 0;
+     Calendar calendario = Calendar.getInstance();
+     int hora, minutos;
+     hora =calendario.get(Calendar.HOUR_OF_DAY);
+     minutos = calendario.get(Calendar.MINUTE);
+     LocalTime t = LocalTime.parse(pHoraInicio);
+     comprobarHora = t.getHour()-hora;
+     comprobarMinutos = t.getMinute()-minutos;
+     if(comprobarHora > 1){
+       return true;
+      }
+     else if(comprobarHora>=1&&comprobarMinutos>=0){
+       return true;
+     } else {
+       return false;        
+     } 
+   }else {
+    return true;
+   }
   }
 
 }

@@ -234,4 +234,21 @@ public class ReservaDAO {
       EnviarCorreo.enviarCorreo(rs.getString("email"),asunto,msg);
     }
   }
+  
+  public ResultSet consultarReservasValidas() throws SQLException{
+    ResultSet rs = null;
+    conexion = Conexion.getConexion();
+    Statement ejecutor = conexion.createStatement();
+    rs = ejecutor.executeQuery("{call esquema.comprobarFechaReservas}");
+    return rs;
+  }
+  
+  public void bajarCalificacionEstudiante(int pOrganizador, int valor) throws SQLException{
+    CallableStatement cstmt = null;
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.bajarCalificacionEstudiante(?,?)}");
+    cstmt.setInt(1,pOrganizador);
+    cstmt.setInt(2,valor);
+    cstmt.executeUpdate();
+  }
 }  
