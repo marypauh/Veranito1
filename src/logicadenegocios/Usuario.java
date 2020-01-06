@@ -56,7 +56,7 @@ public class Usuario {
   @Override
   public String toString(){
     String msg;
-    msg = "Nombre:  " + nombre + "Contraseña: " + contraseña;
+    msg = "Nombre:  " + nombreUsuario + "Contraseña: " + contraseña;
     return msg;     
     } 
   
@@ -75,6 +75,6 @@ public class Usuario {
       return false;
     // convertir el objeto
     Usuario u = (Usuario) o;
-    return nombre == u.nombreUsuario && contraseña == u.contraseña ;
+    return nombreUsuario == u.nombreUsuario && contraseña == u.contraseña ;
   }
 }

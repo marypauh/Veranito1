@@ -332,7 +332,7 @@ public void eliminarRecurso(){
   int row = vistaMostrarSala.recursosSalaTable.getSelectedRow();
   String nombre = vistaMostrarSala.recursosSalaTable.getValueAt(row, 0).toString();
   if( dao.deleteRecurso(modelo.getIdentificador(), nombre) == true){
-     JOptionPane.showMessageDialog(vistaMostrarSala, "Se ha eliminado el recurso: "+ nombre +"exitosamente");
+     JOptionPane.showMessageDialog(vistaMostrarSala, "Se ha eliminado el recurso: "+ nombre +" exitosamente");
      ResultSet rs = dao.getRecursosSala(modelo.getIdentificador());
      updateTabla(rs);
     }else{
@@ -551,7 +551,7 @@ public void consultarSala(){
         JOptionPane.showMessageDialog(vistaCali2, "Ha ocurrido un error al calificar la sala");
       } else{
         JOptionPane.showMessageDialog(vistaCali2, "La Sala ha sido calificada.Gracias.");
-        vistaCali2.setVisible(true);
+        vistaCali2.setVisible(false);
       }
     }
   }
