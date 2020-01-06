@@ -46,16 +46,25 @@ public class ReservaDAO {
   /**
    * Metodo para la consulta de la sala
      * @param pCapacidadMin
+     * @param pNombreRecurso
    * @return salas
    * @throws SQLException 
    */
-  public ResultSet consultarSalas(int pCapacidadMin) throws SQLException{
+  public ResultSet consultarSalas(int pCapacidadMin,String pNombreRecurso) throws SQLException{
     ResultSet rs = null;
     conexion = Conexion.getConexion();
-    CallableStatement cstmt = conexion.prepareCall("{call esquema.consultarSalas(?)}");
+    if("".equals(pNombreRecurso)){
+      CallableStatement cstmt = conexion.prepareCall("{call esquema.consultarSalas(?)}");
     cstmt.setInt(1, pCapacidadMin);
     rs = cstmt.executeQuery();
-    return rs;
+    return rs;  
+    } else {
+      CallableStatement cstmt = conexion.prepareCall("{call esquema.verificarRecursoSala(?,?)}");
+      cstmt.setString(1, pNombreRecurso);
+      cstmt.setInt(2, pCapacidadMin);
+      rs = cstmt.executeQuery();
+      return rs;
+    }
   }
   
   
@@ -298,6 +307,43 @@ public class ReservaDAO {
       numSemana = rs.getInt("numSemana");
     }
     return numSemana;
+  }
+  
+  public int existeEstudiante(int pOrganizador) throws SQLException{
+    CallableStatement cstmt = null;
+    ResultSet rs = null;
+    int resultado =0;
+    Conexion cn = new Conexion();
+    conexion = cn.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.existeEstudiante(?)}");
+    cstmt.setInt(1, pOrganizador);
+    cstmt.executeQuery();
+    rs = cstmt.getResultSet();
+    if(rs.next()){
+      resultado = 1;
+    } else{
+      resultado = 0;
+    }
+    return resultado;
+  }
+  
+  public String obtenerCorreoEstudiante(int pOrganizador) throws SQLException{
+    String correo = "";
+    CallableStatement cstmt = null;
+    ResultSet rs = null;
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.obtenerCorreoEstudiante(?)}"); 
+    cstmt.setInt(1, pOrganizador);
+    rs = cstmt.executeQuery();
+    while(rs.next()){
+      correo = rs.getString(1);
+    }
+    return correo;
+  }
+  
+  public void notificarOrganizador(String pCorreo,String pIdSala, String pHoraInicio, String pHoraFin,Date pFecha){
+    String msg = "Identificador de la sala: " + pIdSala + "\nFecha: " +pFecha.toString()+"\nHora de inicio: "+pHoraInicio+"\nHora de finalización: "+pHoraFin;
+      EnviarCorreo.enviarCorreo(pCorreo,"BiblioTEC - Invitación a reserva de sala",msg);
   }
   
 }  

@@ -130,6 +130,7 @@ public class ControladorReserva implements ActionListener {
    * @throws SQLException 
    */
   public void agregarReserva() throws ParseException, SQLException{
+    if(vista.ReservarSalaDatosCorrectos()==true){
     int organizador = Integer.parseInt(vista.txtCarnetEstudiante.getText());
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     Date fecha = formatter.parse(vista.txtFecha.getText());
@@ -142,27 +143,36 @@ public class ControladorReserva implements ActionListener {
     int capacidadMax = (int)vista.salasTable.getValueAt(vista.salasTable.getSelectedRow(),2);
     System.out.println(dao.comprobarCantidadReservas(fecha, organizador));
     if(listaParticipantes.size()<=capacidadMax){
-      if(dao.comprobarCalificacionEstudiante(organizador)>70){
-        if(dao.comprobarCantidadReservas(fecha,organizador)<3){
-          participanteDao.agregarParticipantesReserva(listaParticipantes, idReserva);
-          participanteDao.agregarParticipantes(listaParticipantes);
-          Reserva reserva = dao.agregarReserva(logicadenegocios);
-          if (reserva != null){
-            vista.setVisible(false);
-            JOptionPane.showMessageDialog(vista, "Se reservo la sala exitosamente");
-            participanteDao.enviarCorreoParticipantes(listaParticipantes,idSala,horaInicio,horaFin,fecha);
-            JOptionPane.showMessageDialog(vista,"Correo de invitación enviado a los participantes");
-            vista.setVisible(true);
-          } else {
-            JOptionPane.showMessageDialog(vista,"No es posible reservar la sala");
-          }  
-        } else{
-          JOptionPane.showMessageDialog(vista,"Solo se pueden reservar un maximo de 3 salas por semana");      
-        }} else {
-           JOptionPane.showMessageDialog(vista,"El estudiante no cumple con la calificacion minima requerida");
-    }
+      if(dao.existeEstudiante(organizador)>0){
+        if(dao.comprobarCalificacionEstudiante(organizador)>70){
+          if(dao.comprobarCantidadReservas(fecha,organizador)<3){
+            participanteDao.agregarParticipantesReserva(listaParticipantes, idReserva);
+            participanteDao.agregarParticipantes(listaParticipantes);
+            Reserva reserva = dao.agregarReserva(logicadenegocios);
+            if (reserva != null){
+              vista.setVisible(false);
+              JOptionPane.showMessageDialog(vista, "Se reservo la sala exitosamente");
+              participanteDao.enviarCorreoParticipantes(listaParticipantes,idSala,horaInicio,horaFin,fecha);
+              dao.notificarOrganizador(dao.obtenerCorreoEstudiante(organizador),idSala,horaInicio,horaFin,fecha);
+              JOptionPane.showMessageDialog(vista,"Correo de invitación enviado a los participantes");
+              vista.setVisible(true);
+            } else {
+              JOptionPane.showMessageDialog(vista,"No es posible reservar la sala");
+            }  
+          } else{
+            JOptionPane.showMessageDialog(vista,"Solo se pueden reservar un maximo de 3 salas por semana");      
+          }
+        } else {
+          JOptionPane.showMessageDialog(vista,"El estudiante no cumple con la calificacion minima requerida");
+        }
+      } else {
+        JOptionPane.showMessageDialog(vista,"El estudiante no esta registrado en el sistema");
+      }
     } else {
       JOptionPane.showMessageDialog(vista,"La cantidad de participantes excede la capacidad maxima de la sala");
+    }
+  } else {
+    JOptionPane.showMessageDialog(vista,"Todos los datos son requeridos");
     }
   }
   
@@ -171,9 +181,9 @@ public class ControladorReserva implements ActionListener {
      * @throws java.sql.SQLException
    */
   public void filtrarSalas() throws SQLException, ParseException{
-    ResultSet salas = dao.consultarSalas(Integer.parseInt(vista.txtCapacidadMinima.getText()));
+    ResultSet salas = dao.consultarSalas(Integer.parseInt(vista.txtCapacidadMinima.getText()),(String)vista.txtRecurso.getText());
     if (salas == null){
-        JOptionPane.showMessageDialog(vista, "Error al cargar reservas");
+        JOptionPane.showMessageDialog(vista, "Error al cargar las salas");
     }else{
         DefaultTableModel table = new DefaultTableModel();
         vista.salasTable.setModel(table);
