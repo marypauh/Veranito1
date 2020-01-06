@@ -1,9 +1,11 @@
 package controlador;
 
-import dao.SalaDAO;
+import dao.GraficoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vista.MenuReportesForm;
+import vista.TopCalificacionesForm;
+import vista.TopCarrerasForm;
 import vista.TopHorariosForm;
 import vista.TopSalas1Form;
 
@@ -45,10 +47,10 @@ public class ControladorMenuReportes implements ActionListener {
         abrirGrafico2();
         break;
       case "Carreras que más usan salas": 
-       
+        abrirGrafico3();
         break;
       case "Salas con mayor puntuación": 
-       
+        abrirGrafico4();
         break;
      case "Cerrar":
         this.vista.cerrarMenu();
@@ -64,22 +66,55 @@ public class ControladorMenuReportes implements ActionListener {
  */
   private void abrirGrafico1(){
     TopSalas1Form vista1 = new TopSalas1Form();
-    SalaDAO dao = new SalaDAO();
+    GraficoDAO dao = new GraficoDAO();
     TopHorariosForm vista2 = new TopHorariosForm();
-    ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2);
+    TopCarrerasForm vista3 = new TopCarrerasForm();
+    TopCalificacionesForm vista4 = new TopCalificacionesForm();
+    ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2, vista3, vista4);
     controlador.vista1.setVisible(true);
-
-}
+  }
   
-    private void abrirGrafico2(){
+  
+/**
+ * Metodo para abrir el grafico 2 de las 5 horarios mas utilizados
+ */
+  private void abrirGrafico2(){
     TopSalas1Form vista1 = new TopSalas1Form();
-    SalaDAO dao = new SalaDAO();
+    GraficoDAO dao = new GraficoDAO();
     TopHorariosForm vista2 = new TopHorariosForm();
-    ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2);
+    TopCarrerasForm vista3 = new TopCarrerasForm();
+    TopCalificacionesForm vista4 = new TopCalificacionesForm();
+    ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2, vista3, vista4);
     controlador.vista2.setVisible(true);
-
-}
+  }
   
+  
+  /**
+ * Metodo para abrir el grafico 3 de las 5 carreras que mas reservan
+ */
+  private void abrirGrafico3(){
+    TopSalas1Form vista1 = new TopSalas1Form();
+    GraficoDAO dao = new GraficoDAO();
+    TopHorariosForm vista2 = new TopHorariosForm();
+    TopCarrerasForm vista3 = new TopCarrerasForm();
+    TopCalificacionesForm vista4 = new TopCalificacionesForm();
+    ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2, vista3, vista4);
+    controlador.vista3.setVisible(true);
+  }
+ 
+  
+/**
+ * Metodo para abrir el grafico 4 de las 5 salas con mayor puntuacion
+ */
+  private void abrirGrafico4(){
+    TopSalas1Form vista1 = new TopSalas1Form();
+    GraficoDAO dao = new GraficoDAO();
+    TopHorariosForm vista2 = new TopHorariosForm();
+    TopCarrerasForm vista3 = new TopCarrerasForm();
+    TopCalificacionesForm vista4 = new TopCalificacionesForm();
+    ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2, vista3, vista4);
+    controlador.vista4.setVisible(true);
+  }  
 }
   
   

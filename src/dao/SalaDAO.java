@@ -266,36 +266,6 @@ public class SalaDAO {
       System.out.println(e);
     }return res;
   }
-  
-  public ResultSet getSalasUtilizadas(){
-    ResultSet rs = null;
-      try {
-        conexion = Conexion.getConexion();
-        Statement ejecutor;
-        ejecutor = conexion.createStatement();
-        rs = ejecutor.executeQuery("select idSala,count(*) as contador from esquema.Reserva group by idSala order by contador desc");
-      } catch (SQLException ex) {
-          Logger.getLogger(SalaDAO.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      System.out.println(rs);
-      return rs;
-    }
-  
-  
-  public ResultSet getHorariosUtilizados(){
-    ResultSet rs = null;
-    try {
-        conexion = Conexion.getConexion();
-        Statement ejecutor;
-        ejecutor = conexion.createStatement();
-        rs = ejecutor.executeQuery("select top 5 esquema.SalaHorario.idHorario, count(*) as contador from esquema.SalaHorario, esquema.Horario where esquema.SalaHorario.idHorario = esquema.Horario.idHorario group by esquema.SalaHorario.idHorario order by contador desc");
-      } catch (SQLException ex) {
-          Logger.getLogger(SalaDAO.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      System.out.println(rs);
-      return rs;
-  
-  
-  }
-  
+
 }
+  
