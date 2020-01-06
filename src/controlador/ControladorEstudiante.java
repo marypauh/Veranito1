@@ -110,7 +110,7 @@ public class ControladorEstudiante implements ActionListener {
             String carrera = vista.txtCarrera.getText();
             String email = vista.txtEmail.getText();
             String telefono = vista.txtTelefono.getText();
-            logicadenegocios = new Estudiante(carnet,nombreCompleto,carrera,email,100,telefono);
+            logicadenegocios = new Estudiante(carnet,nombreCompleto,carrera,email,telefono);
             Estudiante estudianteActual = dao.agregarEstudiante(logicadenegocios);
             if (estudianteActual != null) {
                 vista.setVisible(false);
