@@ -18,6 +18,7 @@ import java.util.Date;
 import logicadenegocios.Participante;
 import logicadenegocios.Reserva;
 import util.EnviarCorreo;
+import util.EnviarSMS;
 
 /**
  *
@@ -345,5 +346,25 @@ public class ReservaDAO {
     String msg = "Identificador de la sala: " + pIdSala + "\nFecha: " +pFecha.toString()+"\nHora de inicio: "+pHoraInicio+"\nHora de finalización: "+pHoraFin;
       EnviarCorreo.enviarCorreo(pCorreo,"BiblioTEC - Invitación a reserva de sala",msg);
   }
+  
+  public void notificarOrganizadorSMS(String pTelefono,String pMensaje){
+    EnviarSMS.enviarSMS(pTelefono, pMensaje);
+  }
+  
+  public String obtenerTelefonoEstudiante(int pOrganizador) throws SQLException{
+    String telefono = "";
+    CallableStatement cstmt = null;
+    ResultSet rs = null;
+    conexion = Conexion.getConexion();
+    cstmt = conexion.prepareCall("{call esquema.obtenerTelefonoEstudiante(?)}"); 
+    cstmt.setInt(1, pOrganizador);
+    rs = cstmt.executeQuery();
+    while(rs.next()){
+      telefono = rs.getString(1);
+    }
+    return telefono;
+  }
+  
+  
   
 }  
