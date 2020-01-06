@@ -163,20 +163,22 @@ public class ControladorReserva implements ActionListener {
     String idSala = (String)vista.salasTable.getValueAt(vista.salasTable.getSelectedRow(),0);
     int idReserva = dao.obtenerIdReserva();
     logicadenegocios = new Reserva(fecha, horaInicio,horaFin,asunto,organizador,idSala);
+    logicadenegocios.setCodigoCalificacion(idSala+"-"+idReserva+"-"+organizador);
     int capacidadMax = (int)vista.salasTable.getValueAt(vista.salasTable.getSelectedRow(),2);
     System.out.println(dao.comprobarCantidadReservas(fecha, organizador));
     if(listaParticipantes.size()<=capacidadMax){
       if(dao.existeEstudiante(organizador)>0){
         if(dao.comprobarCalificacionEstudiante(organizador)>70){
           if(dao.comprobarCantidadReservas(fecha,organizador)<3){
-            participanteDao.agregarParticipantesReserva(listaParticipantes, idReserva);
-            participanteDao.agregarParticipantes(listaParticipantes);
             Reserva reserva = dao.agregarReserva(logicadenegocios);
+            participanteDao.agregarParticipantesReserva(listaParticipantes,idReserva);
+            participanteDao.agregarParticipantes(listaParticipantes);
             if (reserva != null){
               vista.setVisible(false);
               JOptionPane.showMessageDialog(vista, "Se reservo la sala exitosamente");
               participanteDao.enviarCorreoParticipantes(listaParticipantes,idSala,horaInicio,horaFin,fecha);
               dao.notificarOrganizador(dao.obtenerCorreoEstudiante(organizador),idSala,horaInicio,horaFin,fecha);
+              dao.notificarOrganizadorSMS(dao.obtenerTelefonoEstudiante(organizador),reserva.getCodigoCalificacion());
               JOptionPane.showMessageDialog(vista,"Correo de invitación enviado a los participantes");
               vista.setVisible(true);
             } else {
