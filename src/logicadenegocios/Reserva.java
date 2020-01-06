@@ -136,12 +136,37 @@ public class Reserva {
       String carnet = Integer.toString(pCarnet);
       return pIdSala +" - "+ idReserva + " - " + carnet; 
   }
-  
-  
-  
 
+   
+   /**
+   * Método para convertir en String toda la información del Reserva
+   * 
+   * @return msg, con todos los datos del Reserva
+   */
   @Override
   public String toString(){
-    return "";
+    String msg;
+    msg = "Numero de la reserva: " + Integer.toString(numero) + "Hora Inicio: " + horaInicio
+            + "Hora fin: " + horaFin + "asunto: " + "Sala" + salaAsignada + asunto + "organizador " + Integer.toString(organizador)
+            + listaParticipantes.toString() + listaIncidentes.toString();
+    return msg;     
+    } 
+  
+  
+   /**
+   * Método para comparar si un objeto es igual 
+   * 
+   * @param  o el objeto a comparar
+   */
+  public boolean equals(Object o){
+    if(this == o)
+      return true;  
+    if(o==null)
+      return false;
+    if(getClass()!=o.getClass())
+      return false;
+    // convertir el objeto
+    Reserva recurso = (Reserva) o;
+    return numero == recurso.numero;
   }
 }

@@ -46,4 +46,35 @@ public class Usuario {
     this.contraseña = pContraseña;
   }
   
+  
+     
+   /**
+   * Método para convertir en String toda la información del Usuario
+   * 
+   * @return msg, con todos los datos del Usuario
+   */
+  @Override
+  public String toString(){
+    String msg;
+    msg = "Nombre:  " + nombre + "Contraseña: " + contraseña;
+    return msg;     
+    } 
+  
+  
+   /**
+   * Método para comparar si un objeto es igual 
+   * 
+   * @param  o el objeto a comparar
+   */
+  public boolean equals(Object o){
+    if(this == o)
+      return true;  
+    if(o==null)
+      return false;
+    if(getClass()!=o.getClass())
+      return false;
+    // convertir el objeto
+    Usuario u = (Usuario) o;
+    return nombre == u.nombreUsuario && contraseña == u.contraseña ;
+  }
 }

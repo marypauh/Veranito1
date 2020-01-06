@@ -37,10 +37,30 @@ public class Recurso {
   
    /**
    * Método para convertir en String toda la información del Recurso
+   * 
+   * @return  msg, informacion de Recurso
    */
     @Override
     public String toString(){
     String msg = "Nombre: " + getNombre() + "detalle: " + getDetalle();
     return msg;     
-    } 
+    }
+    
+    
+   /**
+   * Método para comparar si un objeto es igual 
+   * 
+   * @param  o el objeto a comparar
+   */
+  public boolean equals(Object o){
+    if(this == o)
+      return true;  
+    if(o==null)
+      return false;
+    if(getClass()!=o.getClass())
+      return false;
+    // convertir el objeto
+    Recurso recurso = (Recurso) o;
+    return recurso.nombre == nombre && recurso.detalle == detalle;
+   } 
 }

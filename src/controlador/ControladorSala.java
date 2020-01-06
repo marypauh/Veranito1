@@ -116,6 +116,9 @@ public class ControladorSala implements ActionListener{
         break;
       case "Agregar a Sala":
        agregarRecurso();
+       this.vistaRecurso.setVisible(false);
+       this.vistaRecursosDisp.setVisible(false);
+       vistaRecursosDisp.setVisible(false);
         break;
       case "Guardar Cambios":
         guardarCambios();
@@ -250,7 +253,7 @@ public void registrarSala(){
   boolean bandera = dao.registrarSala(modelo);
   if(bandera == true){
     JOptionPane.showMessageDialog(vista, "Sala ingresada correctamente");
-    this.vistaRecurso.setVisible(false);
+    vistaRecurso.setVisible(false);
     }else{
       JOptionPane.showMessageDialog(vista, "Error al ingresar la sala");
     }

@@ -113,5 +113,40 @@ public Sala(){
     }else{
       return true;
     }
-  } 
+  }
+  
+  
+     
+   /**
+   * Método para convertir en String toda la información del Sala
+   * 
+   * @return msg, con todos los datos del Estudiante
+   */
+  @Override
+  public String toString(){
+    String msg;
+    msg = "idSala " + identificador + "Ubicación: " + ubicacion
+            + "Capacidad máxima: " + Integer.toString(capacidadMax) + 
+            "Calificacion: " + Integer.toString(calificacion)+ "Estado: " + estado
+            + "Horario " + horario.toString() + "Recursos: " + recursos.toString();
+    return msg;     
+    } 
+  
+  
+   /**
+   * Método para comparar si un objeto es igual 
+   * 
+   * @param  o el objeto a comparar
+   */
+  public boolean equals(Object o){
+    if(this == o)
+      return true;  
+    if(o==null)
+      return false;
+    if(getClass()!=o.getClass())
+      return false;
+    // convertir el objeto
+    Sala sala = (Sala) o;
+    return identificador == sala.identificador;
+  }
 }

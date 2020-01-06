@@ -38,6 +38,8 @@ public class Participante {
       
     /**
    * Método para convertir en String toda la información del Participante
+   * 
+   * @return  msg, informacion de Participante
    */
     @Override
     public String toString(){
@@ -45,8 +47,21 @@ public class Participante {
     return msg;     
     }
     
-    
-    
-    
+   /**
+   * Método para comparar si un objeto es igual 
+   * 
+   * @param  o el objeto a comparar
+   */
+  public boolean equals(Object o){
+    if(this == o)
+      return true;  
+    if(o==null)
+      return false;
+    if(getClass()!=o.getClass())
+      return false;
+    // convertir el objeto
+    Participante participante = (Participante) o;
+    return participante.getEmail() == email && participante.getNombre() == nombre;
+   } 
 }
 

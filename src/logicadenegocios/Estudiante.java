@@ -26,12 +26,11 @@ public class Estudiante {
    * @param pEmail
    * @param pTelefono 
    */
-  public Estudiante(int pCarnet,String pNombreCompleto, String pCarrera, String pEmail, int pCalificacion, String pTelefono) {
+  public Estudiante(int pCarnet,String pNombreCompleto, String pCarrera, String pEmail, String pTelefono) {
     this.nombreCompleto = pNombreCompleto;
     this.carnet = pCarnet;
     this.carrera = pCarrera;
     this.email = pEmail;
-    this.calificacion = pCalificacion;
     this.telefono = pTelefono;
   }
 
@@ -63,6 +62,38 @@ public class Estudiante {
   
   public String getTelefono() {
     return telefono;
-  }   
+  }
+  
+     /**
+   * Método para convertir en String toda la información del Estudiante
+   * 
+   * @return msg, con todos los datos del Estudiante
+   */
+  @Override
+  public String toString(){
+    String carnetS = Integer.toString(carnet);
+    String calificacionS = Integer.toString(calificacion);
+    String msg = "Nombre: " + getNombreCompleto() + "carnet: " + carnetS
+            + "Calificacion: " + calificacionS + "Correo: " + getEmail()
+            + "Telefono: " + getTelefono();
+    return msg;     
+    } 
+  
+   /**
+   * Método para comparar si un objeto es igual 
+   * 
+   * @param  o el objeto a comparar
+   */
+  public boolean equals(Object o){
+    if(this == o)
+      return true;  
+    if(o==null)
+      return false;
+    if(getClass()!=o.getClass())
+      return false;
+    // convertir el objeto
+    Estudiante estudiante = (Estudiante) o;
+    return carnet == estudiante.getCarnet();
+    } 
   
 }
