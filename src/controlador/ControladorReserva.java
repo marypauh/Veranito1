@@ -21,6 +21,7 @@ import logicadenegocios.Estudiante;
 import logicadenegocios.Participante;
 import logicadenegocios.Reserva;
 import logicadenegocios.Sala;
+import vista.BitacoraReservasForm;
 import vista.CancelarReservaForm;
 import vista.ReservarSalaForm;
 
@@ -31,6 +32,7 @@ import vista.ReservarSalaForm;
 public class ControladorReserva implements ActionListener {
   public ReservarSalaForm vista;
   public CancelarReservaForm vistaCancelar;
+  public BitacoraReservasForm vistaReservas;
   public ReservaDAO dao;
   public Reserva logicadenegocios;
   public ArrayList<Participante> listaParticipantes;
@@ -61,6 +63,14 @@ public class ControladorReserva implements ActionListener {
     this.vistaCancelar.btnVolver.addActionListener(this);
     this.vistaCancelar.btnCargarReservas.addActionListener(this);
     this.vistaCancelar.btnCancelarReserva.addActionListener(this);
+  }
+  
+  public ControladorReserva(BitacoraReservasForm pVista, Reserva pModelo) {
+    vistaReservas = pVista;
+    logicadenegocios = pModelo;
+    dao = new ReservaDAO();
+    this.vistaReservas.btnCargarReservas.addActionListener(this);
+    this.vistaReservas.btnVolver.addActionListener(this);
   }
     
   /**
@@ -96,6 +106,19 @@ public class ControladorReserva implements ActionListener {
         break;
       case "Menu":
         ventanaAnterior();
+        break;
+      case "Menu Reportes":
+        menuReportes();
+        break;
+        
+      case "Mostrar Reservas":
+    {
+        try {
+            consultarReservas();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorReserva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
         break;
       case "Agregar":
         agregarParticipantes();
@@ -222,6 +245,10 @@ public class ControladorReserva implements ActionListener {
   public void ventanaAnterior(){
     vistaCancelar.volverMenu();
   }
+  
+  public void menuReportes(){
+    vistaReservas.volverMenu();
+  }
 
   /**
    * Metodo para cargar las reservas en la tabla de la vista
@@ -322,5 +349,25 @@ public class ControladorReserva implements ActionListener {
     java.util.Date hora1 = formatter.parse(pHoraInicio);
     java.util.Date hora2 = formatter.parse(pHoraFin);
     return hora1.compareTo(hora2);  
+  }
+  
+  public void consultarReservas() throws SQLException{
+    ResultSet reservas = dao.consultarReservas();
+    if (reservas == null){
+        JOptionPane.showMessageDialog(vista, "Error al cargar reservas");
+    }else{
+        DefaultTableModel table = new DefaultTableModel();
+        vistaReservas.reservasTable.setModel(table);
+        table.setColumnIdentifiers(new Object[]{"Numero","Estado", "Fecha", "Hora Inicio","Hora Fin", "Codigo Calificacion", "Asunto", "Organizador","Id Sala"});
+        try {
+            while(reservas.next()){
+                if(verificarHoraInicio(reservas.getString("horaInicio"),reservas.getDate("fecha"))==true&&!"Cancelada".equals(reservas.getString("estado"))){
+                  table.addRow(new Object[]{reservas.getInt("numero"), reservas.getString("estado"), reservas.getDate("fecha"), reservas.getString("horaInicio"), reservas.getString("horaFin"), reservas.getString("codigoCalificacion"), reservas.getString("asunto"), reservas.getInt("organizador"),reservas.getString("idSala")});
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }  
   }
 }

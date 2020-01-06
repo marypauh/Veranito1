@@ -104,6 +104,7 @@ public class ControladorMenu implements ActionListener {
     Sala sala = new Sala();
     ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
     controlador.vista.setVisible(true);
+    controlador.vista.setLocationRelativeTo(null);
   }
   
   
@@ -117,6 +118,7 @@ public class ControladorMenu implements ActionListener {
     Sala sala = new Sala();
     ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
     controlador.vistaModSala.setVisible(true);
+    controlador.vistaModSala.setLocationRelativeTo(null);
   }
   
   
@@ -128,6 +130,7 @@ public class ControladorMenu implements ActionListener {
     Reserva reserva = new Reserva();
     ControladorReserva controladorReserva = new ControladorReserva(vistaAgregarReservas, reserva);
     controladorReserva.vista.setVisible(true);
+     controladorReserva.vista.setLocationRelativeTo(null);
   }
   
   
@@ -139,6 +142,7 @@ public class ControladorMenu implements ActionListener {
       Incidente incidente = new Incidente();
       ControladorIncidente controladorIncidente = new ControladorIncidente(vistaRegistrarIncidentes,incidente);
       controladorIncidente.vista.setVisible(true);
+      controladorIncidente.vista.setLocationRelativeTo(null);
   }
   
   
@@ -152,6 +156,7 @@ public class ControladorMenu implements ActionListener {
     Sala sala = new Sala();
     ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
     controlador.vistaConsulta.setVisible(true);
+    controlador.vistaConsulta.setLocationRelativeTo(null);
   }
   
   
@@ -163,6 +168,7 @@ public class ControladorMenu implements ActionListener {
     Reserva reserva = new Reserva();
     ControladorReserva controladorReserva = new ControladorReserva(vistaCancelarReserva, reserva);
     controladorReserva.vistaCancelar.setVisible(true);
+    controladorReserva.vistaCancelar.setLocationRelativeTo(null);
   }
   
   
@@ -176,6 +182,7 @@ public class ControladorMenu implements ActionListener {
     Sala sala = new Sala();
     ControladorSala controlador = new ControladorSala(r,sala,h, recurso);
     controlador.vistaCali.setVisible(true);
+    controlador.vistaCali.setLocationRelativeTo(null);
   }
   
   

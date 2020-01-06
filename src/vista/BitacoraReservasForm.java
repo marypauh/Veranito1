@@ -1,23 +1,28 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package vista;
 
 /**
  *
  * @author Kevin Castillo
  */
-public class CancelarReservaForm extends javax.swing.JFrame {
+public class BitacoraReservasForm extends javax.swing.JFrame {
 
     /**
-     * Creates new form CancelarReservaForm
+     * Creates new form BitacoraReservasForm
      */
-    public CancelarReservaForm() {
+    public BitacoraReservasForm() {
         initComponents();
     }
-
+    
     public void volverMenu(){
       this.setVisible(false);
       this.setLocationRelativeTo(null);
-     }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,9 +34,8 @@ public class CancelarReservaForm extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         reservasTable = new javax.swing.JTable();
-        btnCancelarReserva = new javax.swing.JButton();
-        btnVolver = new javax.swing.JButton();
         btnCargarReservas = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,47 +52,44 @@ public class CancelarReservaForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(reservasTable);
 
-        btnCancelarReserva.setText("Cancelar Reserva");
+        btnCargarReservas.setText("Mostrar Reservas");
 
-        btnVolver.setText("Menu");
-
-        btnCargarReservas.setText("Cargar Reservas");
+        btnVolver.setText("Menu Reportes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnVolver)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCargarReservas)
-                        .addGap(106, 106, 106)
-                        .addComponent(btnCancelarReserva))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(btnCargarReservas))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelarReserva)
-                    .addComponent(btnVolver)
-                    .addComponent(btnCargarReservas))
-                .addContainerGap())
+                    .addComponent(btnCargarReservas)
+                    .addComponent(btnVolver))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param args the command line arguments
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnCancelarReserva;
     public javax.swing.JButton btnCargarReservas;
     public javax.swing.JButton btnVolver;
     private javax.swing.JScrollPane jScrollPane1;

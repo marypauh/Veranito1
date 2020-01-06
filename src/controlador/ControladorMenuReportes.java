@@ -1,8 +1,11 @@
 package controlador;
 
 import dao.GraficoDAO;
+import dao.ReservaDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import logicadenegocios.Reserva;
+import vista.BitacoraReservasForm;
 import vista.MenuReportesForm;
 import vista.TopCalificacionesForm;
 import vista.TopCarrerasForm;
@@ -31,6 +34,7 @@ public class ControladorMenuReportes implements ActionListener {
     this.vista.btnSalasPuntuacion.addActionListener(this);
     this.vista.btnSalasUtilizadas.addActionListener(this);
     this.vista.btnCerrar.addActionListener(this);
+    this.vista.btnBitacoraReservas.addActionListener(this);
   }
   
   
@@ -51,6 +55,9 @@ public class ControladorMenuReportes implements ActionListener {
         break;
       case "Salas con mayor puntuación": 
         abrirGrafico4();
+        break;
+     case "Bitacora de Reservas": 
+        abrirBitacoraReservas();
         break;
      case "Cerrar":
         this.vista.cerrarMenu();
@@ -114,7 +121,15 @@ public class ControladorMenuReportes implements ActionListener {
     TopCalificacionesForm vista4 = new TopCalificacionesForm();
     ControladorGraficos controlador = new ControladorGraficos(vista1,dao, vista2, vista3, vista4);
     controlador.vista4.setVisible(true);
-  }  
+  } 
+  
+  private void abrirBitacoraReservas(){
+    BitacoraReservasForm vistaReservas = new BitacoraReservasForm();
+    Reserva reserva = new Reserva();
+    ControladorReserva controladorReserva = new ControladorReserva(vistaReservas,reserva);
+    controladorReserva.vistaReservas.setVisible(true);
+    controladorReserva.vistaReservas.setLocationRelativeTo(null);
+  }
 }
   
   
